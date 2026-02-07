@@ -29,8 +29,8 @@ Visit: https://riplay.github.io
 
 ## 📧 Contact
 
-- Email: hello@riplay.ai
-- GitHub: [@riplay](https://github.com/riplay)
+- Email: stanwesly@protonmail.com
+- GitHub: [@riplay](https://github.com/Aeell)
 
 ## 📄 License
 
