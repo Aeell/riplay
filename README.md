@@ -23,15 +23,15 @@ We help businesses harness the power of local AI without the drawbacks of cloud-
 
 ## 🌐 Website
 
-This repository hosts the official RIPlay website, deployed via GitHub Pages.
-
-Visit: https://aeell.github.io/riplay
+This repository hosts the official RIPlay website, deployed via GitHub Pages.  
+Visit: https://aeell.github.io/riplay  
+Czech version: https://aeell.github.io/riplay/cs.html
 
 ## 📧 Contact
 
 - Email: stanwesly@protonmail.com
-- GitHub: [@riplay](https://github.com/Aeell)
+- GitHub: [@Aeell](https://github.com/Aeell)
 
 ## 📄 License
 
-© 2025 RIPlay. All rights reserved.
+© 2026 RIPlay. All rights reserved.
