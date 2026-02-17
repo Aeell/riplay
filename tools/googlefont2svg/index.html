@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>GoogleFont2SVG - RIPlay Tools</title>
+    <meta name="description" content="Convert Google Fonts to SVG paths for high-quality vector graphics">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script src="lib/browser.maker.js" type="text/javascript"></script>
+    <script src="lib/bezier.js"></script>
+    <script src="opentype.js" type="text/javascript"></script>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-content">
+            <a href="../../index.html" class="logo-link" title="Back to RIPlay">
+                <img src="../../logo-trans-bkgr.png" alt="RIPlay Logo" class="logo-img">
+            </a>
+            <div class="header-title">
+                <a href="index.html">GoogleFont2SVG</a>
+            </div>
+            <a href="../../index.html" class="btn btn-back">← Back to RIPlay</a>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <details open>
+                <summary>Font Settings</summary>
+                <div class="details-content">
+                    <div class="label-with-link">
+                        <label>Google font:</label>
+                        <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">
+                            Browse fonts ↗
+                        </a>
+                    </div>
+                    <select id="font-select">
+                        <option>Loading fonts...</option>
+                    </select>
+
+                    <label>
+                        Variant:
+                        <select id="font-variant"></select>
+                    </label>
+
+                    <label>
+                        (optional) Upload font:
+                        <input id="font-upload" type="file" accept=".ttf,.otf,.woff,.woff2" />
+                    </label>
+                    <button id="font-upload-remove" class="btn btn-small" style="display:none;">Remove uploaded font</button>
+                </div>
+            </details>
+
+            <details open>
+                <summary>Text Settings</summary>
+                <div class="details-content">
+                    <label>
+                        Text:
+                        <textarea id="input-text" rows="3">Verb</textarea>
+                    </label>
+
+                    <label>
+                        Size:
+                        <input type="number" id="input-size" value="100" />
+                    </label>
+
+                    <label>
+                        Line height <span class="info-icon" title="For multiline text">ℹ️</span>:
+                        <input type="number" id="input-line-height" value="1.2" step="0.1" min="0.1" />
+                    </label>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input-kerning" checked />
+                        Kerning
+                    </label>
+                </div>
+            </details>
+
+            <details open>
+                <summary>Stroke</summary>
+                <div class="details-content">
+                    <label>
+                        Stroke color:
+                        <div class="color-input-group">
+                            <input type="color" id="input-stroke-color" value="#ff0000" />
+                            <input type="text" id="input-stroke" value="#ff0000" placeholder="#ff0000" />
+                        </div>
+                    </label>
+
+                    <label>
+                        Stroke width:
+                        <input type="text" id="input-stroke-width" value="0.25mm" />
+                    </label>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input-stroke-non-scaling" checked />
+                        Non-scaling stroke
+                    </label>
+                </div>
+            </details>
+
+            <details open>
+                <summary>Fill</summary>
+                <div class="details-content">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input-filled" />
+                        Fill
+                    </label>
+
+                    <label>
+                        Fill color:
+                        <div class="color-input-group">
+                            <input type="color" id="input-fill-color" value="#ff0000" />
+                            <input type="text" id="input-fill" value="#ff0000" placeholder="#ff0000" />
+                        </div>
+                    </label>
+
+                    <label>
+                        Fill rule:
+                        <select id="input-fill-rule">
+                            <option value="evenodd">evenodd</option>
+                            <option value="nonzero">nonzero</option>
+                        </select>
+                    </label>
+                </div>
+            </details>
+
+            <details>
+                <summary>Options</summary>
+                <div class="details-content">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input-union" />
+                        Union
+                    </label>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input-separate" />
+                        Separate characters
+                    </label>
+
+                    <label>
+                        Bezier accuracy <span class="info-icon" title="0.5 = accurate to half a pixel&#10;.001 = accurate to 1/1000th of a pixel&#10;smaller numbers take longer to compute&#10;leave blank for auto">ℹ️</span>:
+                        <input type="text" id="input-bezier-accuracy" placeholder="auto" />
+                    </label>
+
+                    <label>
+                        DXF units:
+                        <select id="dxf-units">
+                            <option value="">Select units...</option>
+                        </select>
+                    </label>
+                </div>
+            </details>
+        </aside>
+
+        <main class="content">
+            <div id="error-display"></div>
+
+            <section class="preview-section">
+                <div id="svg-render"></div>
+            </section>
+
+            <section class="output-section">
+                <h2>SVG Output</h2>
+                <div class="textarea-container">
+                    <textarea id="output-svg" readonly></textarea>
+                    <div class="buttons-container">
+                        <button class="btn" id="copy-to-clipboard-btn">Copy to clipboard</button>
+                        <button class="btn" id="download-btn">Download SVG</button>
+                        <button class="btn" id="create-link">Create link</button>
+                        <button class="btn" id="dxf-btn">Download DXF</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
