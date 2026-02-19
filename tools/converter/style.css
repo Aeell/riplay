@@ -1,0 +1,990 @@
+/* ==========================================================================
+   RIPlay Universal Converter — Cyberpunk Theme
+   Built on the RIPlay Design System (RDS) custom properties.
+
+   The :root block below is a copy of the RDS variables so this file is
+   self-contained inside the Vite build (which cannot @import from a
+   parent directory).
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+
+/* --------------------------------------------------------------------------
+   1. RDS CUSTOM PROPERTIES (inlined from css/riplay-design-system.css)
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* ---- Core Backgrounds ---- */
+  --rds-void:      #08090d;
+  --rds-obsidian:  #0c0e14;
+  --rds-gunmetal:  #141821;
+  --rds-graphite:  #1c2030;
+  --rds-steel:     #2a3040;
+  --rds-iron:      #3d4560;
+  --rds-silver:    #8892a8;
+  --rds-chrome:    #c8cdd8;
+  --rds-white:     #eef0f4;
+
+  /* ---- Fire Accents ---- */
+  --rds-ember:  #e85d26;
+  --rds-molten: #ff4d1a;
+  --rds-forge:  #ff6b35;
+  --rds-heat:   #ff9a5c;
+  --rds-ash:    #b84a1c;
+
+  /* ---- Semantic / Utility ---- */
+  --rds-cyan:   #22d3ee;
+  --rds-green:  #10b981;
+  --rds-red:    #ef4444;
+  --rds-yellow: #f59e0b;
+
+  /* ---- Gradients ---- */
+  --rds-gradient-fire: linear-gradient(135deg, #e85d26, #ff4d1a);
+  --rds-gradient-ember-glow: linear-gradient(135deg, rgba(232,93,38,0.15), rgba(255,77,26,0.05));
+  --rds-gradient-hero: radial-gradient(ellipse at 20% 50%, rgba(232,93,38,0.08) 0%, transparent 50%),
+                       radial-gradient(ellipse at 80% 20%, rgba(34,211,238,0.04) 0%, transparent 50%),
+                       linear-gradient(180deg, #08090d, #0c0e14);
+  --rds-gradient-card: linear-gradient(145deg, rgba(28,32,48,0.6), rgba(20,24,33,0.8));
+
+  /* ---- Typography ---- */
+  --rds-font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --rds-font-mono:    'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --rds-font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Type scale */
+  --rds-text-xs:      0.75rem;
+  --rds-text-sm:      0.875rem;
+  --rds-text-base:    1rem;
+  --rds-text-lg:      1.125rem;
+  --rds-text-xl:      1.25rem;
+  --rds-text-2xl:     1.5rem;
+  --rds-text-3xl:     2rem;
+  --rds-text-4xl:     2.5rem;
+  --rds-text-5xl:     3rem;
+  --rds-text-display: 4rem;
+
+  /* Line heights */
+  --rds-leading-tight:   1.25;
+  --rds-leading-snug:    1.375;
+  --rds-leading-normal:  1.5;
+  --rds-leading-relaxed: 1.75;
+
+  /* Letter spacing */
+  --rds-tracking-tight:   -0.02em;
+  --rds-tracking-normal:  0;
+  --rds-tracking-wide:    0.025em;
+  --rds-tracking-wider:   0.05em;
+  --rds-tracking-widest:  0.1em;
+
+  /* ---- Spacing Scale ---- */
+  --rds-space-1:  0.25rem;
+  --rds-space-2:  0.5rem;
+  --rds-space-3:  0.75rem;
+  --rds-space-4:  1rem;
+  --rds-space-5:  1.25rem;
+  --rds-space-6:  1.5rem;
+  --rds-space-8:  2rem;
+  --rds-space-10: 2.5rem;
+  --rds-space-12: 3rem;
+  --rds-space-16: 4rem;
+  --rds-space-20: 5rem;
+  --rds-space-24: 6rem;
+  --rds-space-32: 8rem;
+
+  /* ---- Border Radius ---- */
+  --rds-radius-sm:   4px;
+  --rds-radius-md:   8px;
+  --rds-radius-lg:   12px;
+  --rds-radius-xl:   16px;
+  --rds-radius-2xl:  20px;
+  --rds-radius-full: 9999px;
+
+  /* ---- Shadows ---- */
+  --rds-shadow-sm:  0 1px 2px rgba(0,0,0,0.3);
+  --rds-shadow-md:  0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
+  --rds-shadow-lg:  0 10px 25px -5px rgba(0,0,0,0.5), 0 4px 10px -5px rgba(0,0,0,0.3);
+  --rds-shadow-xl:  0 20px 40px -10px rgba(0,0,0,0.5);
+  --rds-shadow-glow:         0 0 20px rgba(232,93,38,0.2), 0 0 40px rgba(232,93,38,0.1);
+  --rds-shadow-glow-intense: 0 0 30px rgba(232,93,38,0.3), 0 0 60px rgba(232,93,38,0.15);
+  --rds-shadow-glow-molten:  0 0 30px rgba(239,68,68,0.15);
+
+  /* ---- Transitions ---- */
+  --rds-transition-fast:   150ms ease;
+  --rds-transition-base:   250ms ease;
+  --rds-transition-slow:   350ms ease;
+  --rds-transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- Glass Effects ---- */
+  --rds-glass-bg:     rgba(20,24,33,0.7);
+  --rds-glass-border: rgba(42,48,64,0.5);
+  --rds-glass-blur:   blur(12px);
+
+  /* ---- Hover Transforms ---- */
+  --rds-hover-lift:    translateY(-4px);
+  --rds-hover-lift-lg: translateY(-8px);
+
+  /* ---- Legacy highlight (toggled by main.ts for simple / advanced mode) ---- */
+  --highlight-color: #e85d26;
+}
+
+
+/* ==========================================================================
+   2. BASE RESET & BODY
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--rds-obsidian);
+  color: var(--rds-chrome);
+  font-family: var(--rds-font-body);
+  font-size: var(--rds-text-base);
+  line-height: var(--rds-leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  padding-top: 60px; /* fixed header height */
+}
+
+/* Selection */
+::selection {
+  background: var(--rds-ember);
+  color: var(--rds-white);
+}
+
+::-moz-selection {
+  background: var(--rds-ember);
+  color: var(--rds-white);
+}
+
+/* Scrollbar — WebKit */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--rds-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rds-steel);
+  border-radius: var(--rds-radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rds-ember);
+}
+
+/* Scrollbar — Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rds-steel) var(--rds-void);
+}
+
+/* Images / media */
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form reset */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+a {
+  color: var(--rds-ember);
+  text-decoration: none;
+  transition: color var(--rds-transition-fast);
+}
+
+a:hover {
+  color: var(--rds-molten);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--rds-font-heading);
+  color: var(--rds-white);
+  line-height: var(--rds-leading-tight);
+  font-weight: 700;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rds-ember);
+  outline-offset: 2px;
+}
+
+
+/* ==========================================================================
+   3. HEADER
+   ========================================================================== */
+
+.converter-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 60px;
+  background: rgba(12, 14, 20, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rds-steel);
+}
+
+.converter-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--rds-space-6);
+}
+
+/* ---- Brand ---- */
+.converter-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--rds-space-3);
+  text-decoration: none;
+  color: var(--rds-white);
+  flex-shrink: 0;
+}
+
+.converter-brand:hover {
+  color: var(--rds-white);
+}
+
+.converter-logo {
+  height: 32px;
+  width: auto;
+}
+
+.converter-brand-text {
+  font-family: var(--rds-font-mono);
+  font-weight: 700;
+  font-size: var(--rds-text-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--rds-tracking-widest);
+  color: var(--rds-white);
+}
+
+/* ---- Nav (center) ---- */
+.converter-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--rds-space-3);
+}
+
+.converter-nav-title {
+  font-family: var(--rds-font-heading);
+  font-weight: 600;
+  font-size: var(--rds-text-lg);
+  color: var(--rds-white);
+}
+
+.converter-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--rds-space-1) var(--rds-space-3);
+  border-radius: var(--rds-radius-full);
+  font-family: var(--rds-font-mono);
+  font-size: var(--rds-text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--rds-tracking-wider);
+  line-height: 1.4;
+}
+
+.converter-badge-cad {
+  background: var(--rds-gradient-fire);
+  color: #fff;
+}
+
+/* ---- Actions (right) ---- */
+.converter-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--rds-space-3);
+  flex-shrink: 0;
+}
+
+/* Mode toggle button — #mode-button
+   main.ts sets textContent to "Advanced mode" / "Simple mode" */
+.converter-mode-toggle {
+  padding: var(--rds-space-2) var(--rds-space-4);
+  background: var(--rds-graphite);
+  color: var(--rds-chrome);
+  border: 1px solid var(--rds-steel);
+  border-radius: var(--rds-radius-full);
+  font-family: var(--rds-font-mono);
+  font-size: var(--rds-text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--rds-tracking-wider);
+  transition: all var(--rds-transition-base);
+  white-space: nowrap;
+}
+
+.converter-mode-toggle:hover {
+  background: var(--rds-steel);
+  color: var(--rds-white);
+  border-color: var(--rds-iron);
+}
+
+/* Back-to-home button */
+.converter-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rds-space-1);
+  padding: var(--rds-space-2) var(--rds-space-4);
+  background: transparent;
+  color: var(--rds-silver);
+  border: 1px solid var(--rds-steel);
+  border-radius: var(--rds-radius-full);
+  font-size: var(--rds-text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--rds-transition-base);
+  white-space: nowrap;
+}
+
+.converter-back-btn svg {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.converter-back-btn:hover {
+  color: var(--rds-white);
+  border-color: var(--rds-iron);
+  background: rgba(42, 48, 64, 0.3);
+}
+
+
+/* ==========================================================================
+   4. MAIN CONTENT AREA
+   ========================================================================== */
+
+.converter-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--rds-space-6);
+  padding-bottom: 100px; /* space for fixed convert button */
+  min-height: calc(100vh - 60px - 48px);
+}
+
+
+/* ==========================================================================
+   5. CATEGORY TABS
+   ========================================================================== */
+
+.converter-categories {
+  display: flex;
+  gap: var(--rds-space-2);
+  padding: var(--rds-space-4) 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.converter-categories::-webkit-scrollbar {
+  display: none;
+}
+
+.category-tab {
+  padding: var(--rds-space-2) var(--rds-space-4);
+  background: var(--rds-graphite);
+  color: var(--rds-silver);
+  border: 1px solid var(--rds-steel);
+  border-radius: var(--rds-radius-full);
+  font-family: var(--rds-font-body);
+  font-size: var(--rds-text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all var(--rds-transition-base);
+  cursor: pointer;
+}
+
+.category-tab:hover {
+  background: var(--rds-steel);
+  color: var(--rds-chrome);
+}
+
+.category-tab.active {
+  background: var(--rds-ember);
+  color: #fff;
+  border-color: var(--rds-ember);
+  box-shadow: 0 0 16px rgba(232, 93, 38, 0.3);
+}
+
+
+/* ==========================================================================
+   6. DROP ZONE  (#file-area + .converter-dropzone)
+
+   The JS replaces innerHTML of #file-area on file select, so styling
+   must target the element itself plus any children it may contain.
+   ========================================================================== */
+
+#file-input {
+  display: none;
+}
+
+#file-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+  padding: var(--rds-space-10);
+  background: var(--rds-gunmetal);
+  border: 2px dashed var(--rds-steel);
+  border-radius: var(--rds-radius-lg);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--rds-transition-base);
+  margin-bottom: var(--rds-space-6);
+}
+
+#file-area:hover {
+  border-color: var(--rds-iron);
+  background: rgba(20, 24, 33, 0.9);
+}
+
+/* Drag-over state (can be toggled via JS on dragenter/dragleave) */
+#file-area.drag-over {
+  border-color: var(--rds-ember);
+  background: rgba(232, 93, 38, 0.05);
+  box-shadow: inset 0 0 40px rgba(232, 93, 38, 0.05);
+  animation: dropzone-pulse 1.5s ease-in-out infinite;
+}
+
+.dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--rds-space-3);
+}
+
+.dropzone-icon {
+  width: 64px;
+  height: 64px;
+  color: var(--rds-iron);
+  margin-bottom: var(--rds-space-2);
+  transition: color var(--rds-transition-base);
+}
+
+#file-area:hover .dropzone-icon {
+  color: var(--rds-ember);
+}
+
+/* Headings inside #file-area — initial state AND after JS replaces innerHTML */
+#file-area h2 {
+  font-family: var(--rds-font-heading);
+  font-size: var(--rds-text-xl);
+  font-weight: 600;
+  color: var(--rds-white);
+  margin: var(--rds-space-1) 0;
+}
+
+#file-area p {
+  font-size: var(--rds-text-sm);
+  color: var(--rds-silver);
+  margin: var(--rds-space-1) 0;
+  line-height: var(--rds-leading-relaxed);
+}
+
+
+/* ==========================================================================
+   7. FORMAT CONTAINERS
+   ========================================================================== */
+
+#format-containers {
+  display: flex;
+  gap: var(--rds-space-4);
+  margin-bottom: var(--rds-space-8);
+}
+
+.format-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 50%;
+  padding: var(--rds-space-6);
+  background: var(--rds-gunmetal);
+  border: 1px solid var(--rds-steel);
+  border-radius: var(--rds-radius-lg);
+  transition: border-color var(--rds-transition-base);
+}
+
+.format-container:hover {
+  border-color: var(--rds-iron);
+}
+
+.format-container h2 {
+  font-size: var(--rds-text-lg);
+  font-weight: 600;
+  color: var(--rds-white);
+  margin-bottom: var(--rds-space-4);
+  text-align: center;
+}
+
+/* ---- Search inputs ---- */
+.search {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--rds-space-3) var(--rds-space-4);
+  background: rgba(12, 14, 20, 0.6);
+  border: 1px solid var(--rds-steel);
+  border-radius: var(--rds-radius-md);
+  color: var(--rds-chrome);
+  font-family: var(--rds-font-mono);
+  font-size: var(--rds-text-sm);
+  text-align: center;
+  margin-bottom: var(--rds-space-4);
+  transition: all var(--rds-transition-base);
+  outline: none;
+}
+
+.search::placeholder {
+  color: var(--rds-iron);
+}
+
+.search:focus {
+  border-color: var(--rds-ember);
+  box-shadow: 0 0 0 3px rgba(232, 93, 38, 0.15);
+}
+
+/* ---- Format list (scrollable) ---- */
+.format-list {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  align-items: center;
+  background: var(--rds-graphite);
+  border-radius: var(--rds-radius-md);
+  padding: var(--rds-space-4);
+  max-height: 60vh;
+  overflow-y: auto;
+  gap: var(--rds-space-1);
+}
+
+/* ---- Format buttons (created by main.ts inside .format-list) ----
+   NOTE: main.ts fully replaces className → "" or "selected"
+   so we CANNOT rely on persistent classes.  Style by parent. */
+.format-list button {
+  width: 100%;
+  padding: var(--rds-space-3) var(--rds-space-4);
+  background: var(--rds-gunmetal);
+  color: var(--rds-chrome);
+  border: 1px solid transparent;
+  border-radius: var(--rds-radius-md);
+  font-family: var(--rds-font-mono);
+  font-size: var(--rds-text-sm);
+  text-align: left;
+  word-break: break-word;
+  cursor: pointer;
+  transition: all var(--rds-transition-fast);
+  animation: format-btn-fadein 0.3s ease both;
+}
+
+/* Stagger fade-in for the first 20 buttons */
+.format-list button:nth-child(1)  { animation-delay: 0ms; }
+.format-list button:nth-child(2)  { animation-delay: 15ms; }
+.format-list button:nth-child(3)  { animation-delay: 30ms; }
+.format-list button:nth-child(4)  { animation-delay: 45ms; }
+.format-list button:nth-child(5)  { animation-delay: 60ms; }
+.format-list button:nth-child(6)  { animation-delay: 75ms; }
+.format-list button:nth-child(7)  { animation-delay: 90ms; }
+.format-list button:nth-child(8)  { animation-delay: 105ms; }
+.format-list button:nth-child(9)  { animation-delay: 120ms; }
+.format-list button:nth-child(10) { animation-delay: 135ms; }
+.format-list button:nth-child(11) { animation-delay: 150ms; }
+.format-list button:nth-child(12) { animation-delay: 165ms; }
+.format-list button:nth-child(13) { animation-delay: 180ms; }
+.format-list button:nth-child(14) { animation-delay: 195ms; }
+.format-list button:nth-child(15) { animation-delay: 210ms; }
+.format-list button:nth-child(16) { animation-delay: 225ms; }
+.format-list button:nth-child(17) { animation-delay: 240ms; }
+.format-list button:nth-child(18) { animation-delay: 255ms; }
+.format-list button:nth-child(19) { animation-delay: 270ms; }
+.format-list button:nth-child(20) { animation-delay: 285ms; }
+
+.format-list button:hover {
+  background: var(--rds-steel);
+  border-color: var(--rds-iron);
+  color: var(--rds-white);
+}
+
+/* Selected state — class "selected" set by main.ts */
+button.selected {
+  background: var(--rds-ember) !important;
+  color: #fff !important;
+  border-color: var(--rds-ember) !important;
+  font-weight: 600;
+  box-shadow: 0 0 16px rgba(232, 93, 38, 0.3);
+}
+
+
+/* ==========================================================================
+   8. CONVERT BUTTON
+
+   main.ts toggles className between "" (enabled) and "disabled".
+   All visual styling is by ID so it persists across class changes.
+   ========================================================================== */
+
+#convert-button {
+  position: fixed;
+  left: 50%;
+  bottom: var(--rds-space-6);
+  transform: translateX(-50%);
+  z-index: 100;
+  min-width: 220px;
+  padding: var(--rds-space-4) var(--rds-space-8);
+  background: var(--rds-gradient-fire);
+  color: #fff;
+  font-family: var(--rds-font-heading);
+  font-size: var(--rds-text-lg);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--rds-tracking-wider);
+  border: none;
+  border-radius: var(--rds-radius-lg);
+  cursor: pointer;
+  transition: all var(--rds-transition-base);
+  box-shadow: 0 4px 20px rgba(232, 93, 38, 0.3);
+}
+
+#convert-button:hover:not(.disabled) {
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 8px 30px rgba(232, 93, 38, 0.4);
+}
+
+#convert-button:active:not(.disabled) {
+  transform: translateX(-50%) translateY(0);
+  box-shadow: 0 2px 10px rgba(232, 93, 38, 0.3);
+}
+
+/* Disabled state */
+.disabled {
+  filter: grayscale(0.7) brightness(0.5);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+
+/* ==========================================================================
+   9. POPUP / MODAL
+
+   showPopup() sets  #popup.style.display = "block"
+                     #popup-bg.style.display = "block"
+   hidePopup() sets  both to "none"
+   ========================================================================== */
+
+#popup-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 9, 13, 0.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: none;
+}
+
+#popup {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 480px;
+  background: var(--rds-gunmetal);
+  border: 1px solid var(--rds-glass-border);
+  border-radius: var(--rds-radius-2xl);
+  padding: var(--rds-space-8);
+  text-align: center;
+  z-index: 2001;
+  box-shadow: var(--rds-shadow-xl);
+  display: none;
+}
+
+#popup h2 {
+  font-size: var(--rds-text-xl);
+  color: var(--rds-white);
+  margin-bottom: var(--rds-space-4);
+}
+
+#popup p {
+  font-family: var(--rds-font-mono);
+  font-size: var(--rds-text-sm);
+  color: var(--rds-silver);
+  margin-bottom: var(--rds-space-3);
+  line-height: var(--rds-leading-relaxed);
+}
+
+#popup b {
+  color: var(--rds-ember);
+  font-family: var(--rds-font-mono);
+}
+
+#popup button {
+  padding: var(--rds-space-3) var(--rds-space-6);
+  background: var(--rds-gradient-fire);
+  color: #fff;
+  border: none;
+  border-radius: var(--rds-radius-md);
+  font-family: var(--rds-font-heading);
+  font-size: var(--rds-text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--rds-transition-base);
+  margin-top: var(--rds-space-2);
+}
+
+#popup button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(232, 93, 38, 0.3);
+}
+
+#popup button:active {
+  transform: translateY(0);
+}
+
+
+/* ==========================================================================
+   10. FOOTER
+   ========================================================================== */
+
+.converter-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--rds-space-4) var(--rds-space-6);
+  background: var(--rds-void);
+  border-top: 1px solid var(--rds-steel);
+  font-family: var(--rds-font-mono);
+  font-size: var(--rds-text-xs);
+  color: var(--rds-iron);
+  letter-spacing: var(--rds-tracking-wide);
+}
+
+
+/* ==========================================================================
+   11. ANIMATIONS
+   ========================================================================== */
+
+/* Dropzone drag-over pulse */
+@keyframes dropzone-pulse {
+  0%, 100% {
+    box-shadow: inset 0 0 40px rgba(232, 93, 38, 0.05);
+  }
+  50% {
+    box-shadow: inset 0 0 60px rgba(232, 93, 38, 0.12);
+  }
+}
+
+/* Format button stagger fade-in */
+@keyframes format-btn-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Progress bar animated gradient sweep (for future use inside popup) */
+@keyframes progress-sweep {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+
+/* ==========================================================================
+   12. RESPONSIVE — Tablet (≤ 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .converter-header-inner {
+    padding: 0 var(--rds-space-3);
+  }
+
+  .converter-nav-title {
+    font-size: var(--rds-text-base);
+  }
+
+  .converter-badge-cad {
+    display: none;
+  }
+
+  .converter-back-btn {
+    display: none;
+  }
+
+  .converter-categories {
+    padding: var(--rds-space-3) 0;
+  }
+
+  #file-area {
+    min-height: 200px;
+    padding: var(--rds-space-6);
+  }
+
+  #drop-hint-text {
+    display: none;
+  }
+
+  #format-containers {
+    flex-direction: column;
+  }
+
+  .format-container {
+    width: 100%;
+    padding: var(--rds-space-4);
+  }
+
+  .format-list {
+    max-height: 50vh;
+  }
+
+  .format-list button {
+    width: 100%;
+  }
+
+  #convert-button {
+    min-width: 180px;
+    padding: var(--rds-space-3) var(--rds-space-6);
+    font-size: var(--rds-text-base);
+  }
+
+  #popup {
+    width: 92%;
+    padding: var(--rds-space-6);
+  }
+
+  .converter-footer {
+    flex-direction: column;
+    gap: var(--rds-space-2);
+    text-align: center;
+  }
+}
+
+
+/* ==========================================================================
+   13. RESPONSIVE — Small phone (≤ 480px)
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .converter-brand-text {
+    display: none;
+  }
+
+  .converter-nav-title {
+    font-size: var(--rds-text-sm);
+  }
+
+  .converter-mode-toggle {
+    font-size: 0.65rem;
+    padding: var(--rds-space-1) var(--rds-space-3);
+  }
+
+  .category-tab {
+    font-size: var(--rds-text-xs);
+    padding: var(--rds-space-1) var(--rds-space-3);
+  }
+
+  #file-area {
+    min-height: 160px;
+    padding: var(--rds-space-4);
+  }
+
+  .dropzone-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  #file-area h2 {
+    font-size: var(--rds-text-base);
+  }
+
+  .format-container {
+    padding: var(--rds-space-3);
+  }
+
+  .format-container h2 {
+    font-size: var(--rds-text-base);
+  }
+
+  .search {
+    font-size: var(--rds-text-xs);
+    padding: var(--rds-space-2) var(--rds-space-3);
+  }
+
+  #convert-button {
+    min-width: 160px;
+    font-size: var(--rds-text-sm);
+  }
+}
+
+
+/* ==========================================================================
+   14. REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ==========================================================================
+   15. PRINT
+   ========================================================================== */
+
+@media print {
+  body {
+    display: none;
+  }
+}

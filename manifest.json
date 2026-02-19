@@ -1,0 +1,24 @@
+{
+  "name": "RIPlay — Automation & Tools",
+  "short_name": "RIPlay",
+  "description": "Professional automation services and free online conversion tools. 100% client-side file conversion.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0e14",
+  "theme_color": "#e85d26",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["utilities", "productivity"],
+  "orientation": "any"
+}

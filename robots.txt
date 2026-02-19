@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+Disallow: /3rd_party/
+Disallow: /tools/converter/src/
+Disallow: /tools/converter/node_modules/
+Disallow: /plans/
+Disallow: /docs/
+Disallow: /.github/
+Disallow: /.kilocode/
+
+Sitemap: https://riplay.cz/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
