@@ -40,11 +40,16 @@ jobs:
           npm run build
 
       # Replace source with built output so paths work correctly
+      # Keep dist directory structure intact - Vite generates correct paths with base setting
       - name: Deploy Converter Build
         run: |
+          # Remove source files that are replaced by build output
           rm -rf tools/converter/src
-          rm tools/converter/index.html
-          rm tools/converter/style.css
+          rm -f tools/converter/index.html
+          rm -f tools/converter/style.css
+          rm -f tools/converter/tsconfig.json
+          rm -f tools/converter/vite.config.js
+          # Move dist contents to tools/converter/ (preserving assets/ subdirectory)
           mv tools/converter/dist/* tools/converter/
           rmdir tools/converter/dist
 

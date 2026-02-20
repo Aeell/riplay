@@ -9,7 +9,7 @@ export default defineConfig({
       "@sqlite.org/sqlite-wasm",
     ]
   },
-  base: "/tools/converter/",
+  base: "/riplay/tools/converter/",
   plugins: [
     viteStaticCopy({
       targets: [
