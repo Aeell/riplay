@@ -2,8 +2,12 @@ import puppeteer from "puppeteer";
 
 const server = Bun.serve({
   async fetch (req) {
-    const path = new URL(req.url).pathname.replace("/convert/", "") || "index.html";
-    const file = Bun.file(`${__dirname}/dist/${path}`);
+    // Handle paths with the base URL prefix
+    let path = new URL(req.url).pathname;
+    // Remove the base path prefix if present
+    path = path.replace(/^\/tools\/converter/, "") || "index.html";
+    path = path.replace(/^\//, "") || "index.html";
+    const file = Bun.file(`${import.meta.dir}/dist/${path}`);
     if (!(await file.exists())) return new Response("Not Found", { status: 404 });
     return new Response(file);
   },
@@ -24,7 +28,8 @@ await Promise.all([
       if (text === "Built initial format list.") resolve();
     });
   }),
-  page.goto("http://localhost:8080/convert/index.html")
+  // Use the correct base path for the built app
+  page.goto("http://localhost:8080/tools/converter/index.html")
 ]);
 
 const cacheJSON = await page.evaluate(() => {

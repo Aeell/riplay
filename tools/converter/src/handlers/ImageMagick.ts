@@ -21,7 +21,8 @@ class ImageMagickHandler implements FormatHandler {
 
   async init () {
 
-    const wasmLocation = "/tools/converter/wasm/magick.wasm";
+    // Use import.meta.env.BASE_URL to respect Vite's base path configuration
+    const wasmLocation = `${import.meta.env.BASE_URL}wasm/magick.wasm`;
     const wasmBytes = await fetch(wasmLocation).then(r => r.bytes());
 
     await initializeImageMagick(wasmBytes);

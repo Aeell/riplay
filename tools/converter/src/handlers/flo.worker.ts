@@ -10,7 +10,14 @@ let ready = false;
 
 async function init() {
   try {
-    await initReflo('/tools/converter/wasm/reflo_bg.wasm');
+    // Calculate base URL from worker location
+    // Worker is at /tools/converter/assets/flo.worker-[hash].js
+    // WASM files are at /tools/converter/wasm/reflo_bg.wasm
+    // So we need to go up one directory level from assets/ to get base URL
+    const workerPath = self.location.pathname;
+    const baseUrl = workerPath.substring(0, workerPath.lastIndexOf('/assets/'));
+    const wasmPath = baseUrl + '/wasm/reflo_bg.wasm';
+    await initReflo(wasmPath);
     ready = true;
     // signal ready
     (self as any).postMessage({ id: 0, type: 'ready' });

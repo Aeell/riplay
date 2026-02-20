@@ -32,8 +32,9 @@ class FFmpegHandler implements FormatHandler {
 
   async loadFFmpeg () {
     if (!this.#ffmpeg) return;
+    // Use import.meta.env.BASE_URL to respect Vite's base path configuration
     return await this.#ffmpeg.load({
-      coreURL: "/tools/converter/wasm/ffmpeg-core.js"
+      coreURL: `${import.meta.env.BASE_URL}wasm/ffmpeg-core.js`
     });
   }
   terminateFFmpeg () {
