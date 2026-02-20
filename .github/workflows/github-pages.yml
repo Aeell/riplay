@@ -26,6 +26,28 @@ jobs:
         with:
           submodules: false
 
+      # Setup Node.js for Vite build
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Build the converter (Vite outputs to tools/converter/dist/)
+      - name: Build Converter
+        run: |
+          cd tools/converter
+          npm install
+          npm run build
+
+      # Replace source with built output so paths work correctly
+      - name: Deploy Converter Build
+        run: |
+          rm -rf tools/converter/src
+          rm tools/converter/index.html
+          rm tools/converter/style.css
+          mv tools/converter/dist/* tools/converter/
+          rmdir tools/converter/dist
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
