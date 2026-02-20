@@ -650,6 +650,37 @@ hr {
   border-bottom-color: rgba(232, 93, 38, 0.08);
 }
 
+/* Nav inner container — flex row, space between brand + links */
+.rds-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand (logo + text) */
+.rds-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--rds-space-3);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.rds-nav-brand-text {
+  font-family: var(--rds-font-mono);
+  font-size: var(--rds-text-lg);
+  font-weight: 700;
+  color: var(--rds-white);
+}
+
+/* Logo image — constrained height */
+.rds-nav-logo {
+  height: 36px;
+  max-height: 36px;
+  width: auto;
+  display: block;
+}
+
 /* Nav links container */
 .rds-nav-links {
   display: flex;
