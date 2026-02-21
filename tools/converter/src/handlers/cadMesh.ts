@@ -83,6 +83,15 @@ class cadMeshHandler implements FormatHandler {
       internal: "jpeg"
     },
     {
+      name: "GIF Image (3D Render)",
+      format: "gif",
+      extension: "gif",
+      mime: "image/gif",
+      from: false,
+      to: true,
+      internal: "gif"
+    },
+    {
       name: "SVG Vector (3D Render Traced)",
       format: "svg",
       extension: "svg",
@@ -263,8 +272,9 @@ class cadMeshHandler implements FormatHandler {
         return new Uint8Array(glbResult);
       }
       case "png":
-      case "jpeg": {
-        // Render to image
+      case "jpeg":
+      case "gif": {
+        // Render to image (GIF uses PNG rendering, browser will convert)
         return this.renderToImage(geometry, outputFormat.mime);
       }
       case "svg": {
