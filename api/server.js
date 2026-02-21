@@ -69,7 +69,8 @@ app.post('/api/pdf/merge', upload.array('files', 20), async (req, res) => {
   const startTime = Date.now();
   
   try {
-    if (!req.files || req.files.length < 2) {
+    // Type check: ensure req.files is an array (protection against parameter tampering)
+    if (!Array.isArray(req.files) || req.files.length < 2) {
       return res.status(400).json({ error: 'At least 2 PDF files required' });
     }
 
@@ -120,7 +121,9 @@ app.post('/api/pdf/split', upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'PDF file required' });
     }
 
-    const ranges = parsePageRanges(req.body.ranges || '1-');
+    // Validate ranges parameter is a string (protection against parameter tampering)
+    const rangesParam = typeof req.body.ranges === 'string' ? req.body.ranges : '1-';
+    const ranges = parsePageRanges(rangesParam);
     const sourcePdf = await PDFDocument.load(req.file.buffer);
     const splitPdf = await PDFDocument.create();
     
@@ -172,7 +175,8 @@ app.post('/api/pdf/compress', upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'PDF file required' });
     }
 
-    const quality = req.body.quality || 'medium';
+    // Validate quality parameter is a string (protection against parameter tampering)
+    const quality = typeof req.body.quality === 'string' ? req.body.quality : 'medium';
     
     // Load PDF
     const pdfDoc = await PDFDocument.load(req.file.buffer, {
@@ -242,8 +246,9 @@ app.post('/api/image/compress', upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'Image file required' });
     }
 
-    const quality = parseInt(req.body.quality) || 80;
-    const format = req.body.format || 'jpeg';
+    // Validate and sanitize parameters (protection against parameter tampering)
+    const quality = Math.min(100, Math.max(1, parseInt(req.body.quality) || 80));
+    const format = typeof req.body.format === 'string' ? req.body.format : 'jpeg';
     const maxWidth = parseInt(req.body.maxWidth) || null;
     const maxHeight = parseInt(req.body.maxHeight) || null;
     
@@ -331,12 +336,14 @@ app.post('/api/image/batch', upload.array('files', 20), async (req, res) => {
   const startTime = Date.now();
   
   try {
-    if (!req.files || req.files.length === 0) {
+    // Type check: ensure req.files is an array (protection against parameter tampering)
+    if (!Array.isArray(req.files) || req.files.length === 0) {
       return res.status(400).json({ error: 'Image files required' });
     }
 
-    const quality = parseInt(req.body.quality) || 80;
-    const format = req.body.format || 'jpeg';
+    // Validate and sanitize quality parameter
+    const quality = Math.min(100, Math.max(1, parseInt(req.body.quality) || 80));
+    const format = typeof req.body.format === 'string' ? req.body.format : 'jpeg';
     
     // For batch processing, we'll return a JSON with individual results
     // In production, you'd use JSZip to create a ZIP file
