@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RIPlay – Automatizace procesů &amp; bezplatné online nástroje | Liberec</title>
-  <meta name="description" content="Automatizace pracovních postupů, integrace systémů a lokální AI řešení pro firmy. Bezplatné online nástroje: konvertor souborů, GoogleFont2SVG. Liberec, Česko.">
-  <meta name="keywords" content="automatizace procesů, workflow automatizace, AI agenti, integrace systémů, konvertor souborů, online nástroje zdarma, GoogleFont2SVG, datová analýza, automatizace e-mailů, Liberec, Česko">
+  <title>RIPlay – Agentní AI &amp; automatizace pro reálnej život | Liberec</title>
+  <meta name="description" content="Stavím lokální AI agenty, co fakt dělaj práci za mě — řazení mailů, sledování výdajů, automatizace procesů. Plus free nástroje: konvertor souborů, GoogleFont2SVG. Liberec, Česko.">
+  <meta name="keywords" content="agentní AI, lokální AI, Ollama, automatizace procesů, AI agenti, integrace systémů, konvertor souborů, online nástroje zdarma, GoogleFont2SVG, datová analýza, automatizace e-mailů, Liberec, Česko">
   <meta name="robots" content="index, follow">
   <meta name="author" content="RIPlay – Stan Wesly">
   <link rel="canonical" href="https://riplay.cz/">
@@ -17,8 +17,8 @@
   <link rel="alternate" hreflang="x-default" href="https://riplay.cz/en.html">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="RIPlay – Automatizace procesů &amp; bezplatné online nástroje">
-  <meta property="og:description" content="Automatizace pracovních postupů, integrace systémů a lokální AI řešení. Bezplatné konvertory souborů a vektorových písem.">
+  <meta property="og:title" content="RIPlay – Agentní AI &amp; automatizace pro reálnej život">
+  <meta property="og:description" content="Stavím lokální AI agenty, co fakt dělaj práci za mě. Plus free nástroje: konvertor souborů, GoogleFont2SVG.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://riplay.cz/">
   <meta property="og:image" content="https://riplay.cz/logo.png">
@@ -27,8 +27,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RIPlay – Automatizace procesů &amp; bezplatné online nástroje">
-  <meta name="twitter:description" content="Automatizace pracovních postupů, integrace systémů a lokální AI řešení. Bezplatné konvertory souborů a vektorových písem.">
+  <meta name="twitter:title" content="RIPlay – Agentní AI &amp; automatizace pro reálnej život">
+  <meta name="twitter:description" content="Stavím lokální AI agenty, co fakt dělaj práci za mě. Plus free nástroje: konvertor souborů, GoogleFont2SVG.">
   <meta name="twitter:image" content="https://riplay.cz/logo.png">
 
   <!-- Favicon, manifest, theme-color -->
@@ -36,13 +36,43 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#e85d26">
 
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FWR9G2XB2W"></script>
+  <!-- Google Analytics 4 - loaded after cookie consent -->
   <script>
+    // Cookie consent handling for GA4
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-FWR9G2XB2W');
+    
+    // Check consent on load
+    if (localStorage.getItem('cookie-consent') === 'accepted') {
+      loadGA4();
+    }
+    
+    function loadGA4() {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-FWR9G2XB2W';
+      document.head.appendChild(script);
+      gtag('js', new Date());
+      gtag('config', 'G-FWR9G2XB2W');
+    }
+    
+    function acceptCookies() {
+      localStorage.setItem('cookie-consent', 'accepted');
+      loadGA4();
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    function declineCookies() {
+      localStorage.setItem('cookie-consent', 'declined');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    // Show banner if no consent decision made
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!localStorage.getItem('cookie-consent')) {
+        document.getElementById('cookie-banner').style.display = 'flex';
+      }
+    });
   </script>
 
   <!-- JSON-LD: LocalBusiness -->
@@ -180,9 +210,9 @@
         <span></span><span></span><span></span>
       </button>
       <div class="rds-nav-links">
-        <a href="#services" class="rds-nav-link">Služby</a>
+        <a href="#usecases" class="rds-nav-link">Použití</a>
         <a href="#tools" class="rds-nav-link">Nástroje</a>
-        <a href="#about" class="rds-nav-link">O nás</a>
+        <a href="#why" class="rds-nav-link">Proč</a>
         <a href="#contact" class="rds-nav-link">Kontakt</a>
         <div class="lang-switch">
           <a href="index.html" class="lang-switch-btn active" title="Čeština">CS</a>
@@ -198,36 +228,65 @@
        ================================================================ -->
   <header class="hero">
     <div class="hero-content">
-      <div class="hero-badge rds-mono">// AUTOMATIZACE &amp; NÁSTROJE</div>
+      <div class="hero-badge rds-mono">// AGENTNÍ AI V PRAXI</div>
       <h1 class="hero-title">
-        Automatizace,<br>
-        která <span class="rds-text-gradient">skutečně funguje</span>
+        RIPlay — Automatizuju<br>
+        <span class="rds-text-gradient">nudný shit v životě</span>
       </h1>
       <p class="hero-subtitle">
-        Pomáháme firmám šetřit čas a peníze prostřednictvím inteligentní automatizace.
-        Navíc nabízíme <span class="rds-mono">bezplatné online nástroje</span> pro konverzi souborů a práci s fonty.
+        Čau, jsem chlap za RIPlay. Stavím lokální AI agenty, co fakt něco dělají — 
+        řadí maily, sledují výdaje, generují reporty, řeší repetitivní úkoly — 
+        všechno běží na mém vlastním hardwaru, nula cloud, nula špehování.
       </p>
-      <div class="hero-typed" data-typed-text="Automatizujeme pracovní postupy od roku 2024"></div>
+      <p class="hero-subtitle" style="margin-top: 0.5rem;">
+        Tak jsem open-sourcl pár nástrojů, co jsem potřeboval sám (konvertor souborů + GoogleFont2SVG). 
+        Žádná registrace, žádná data neopouštějí prohlížeč.
+      </p>
       <div class="hero-cta-group">
-        <a href="#services" class="rds-btn rds-btn-primary">Naše služby</a>
+        <a href="#usecases" class="rds-btn rds-btn-primary">Jak to používám</a>
         <a href="#tools" class="rds-btn rds-btn-secondary">Vyzkoušet nástroje</a>
       </div>
     </div>
   </header>
 
   <!-- ================================================================
-       SERVICES
+       ABOUT ME
        ================================================================ -->
-  <section id="services" class="services rds-section">
+  <section id="about" class="about rds-section" style="padding-top: 4rem; padding-bottom: 4rem;">
+    <div class="rds-container">
+      <div class="about-content rds-fade-in" style="max-width: 800px;">
+        <p style="font-size: 1.15rem; line-height: 1.8;">
+          Nejsem firma. Jsem jen chlap z Liberce, kterého omrzelo dělat každej den to samý.
+          Tak jsem začal hrát s lokálními LLM (Ollama + parta agentů) a najednou mi počítač 
+          řeší půlku životní administrativy.
+        </p>
+        <p style="font-size: 1.15rem; line-height: 1.8; margin-top: 1rem;">
+          Teď pomáhám ostatním dělat to samý — ať už je to jeden jednoduchej agent 
+          pro side-project nebo celej swarm, co ti běží osobní systémy. Všechno 
+          privacy-first, open-source kde to jde, a fakticky užitečný.
+        </p>
+        <p style="font-size: 0.95rem; color: var(--rds-iron); margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+          Tenhle celej web jsem vibe-codoval já + moje AI parta:<br>
+          <strong>Grok (xAI)</strong>, <strong>Claude Opus 4.6</strong>, <strong>Z.ai GLM-5</strong> 
+          a lokální <strong>Qwen3-30B-A3B</strong> přes Ollama, který ho nakonec dostal do produkce.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       USE CASES
+       ================================================================ -->
+  <section id="usecases" class="services rds-section">
     <div class="rds-container">
       <div class="section-header rds-fade-in">
-        <span class="section-tag">// SLUŽBY</span>
-        <h2 class="section-title">Co pro vás můžeme udělat</h2>
-        <p class="section-subtitle">Komplexní řešení automatizace přizpůsobená potřebám vašeho podnikání</p>
+        <span class="section-tag">// POUŽITÍ</span>
+        <h2 class="section-title">Jak fakt používám agentní AI v běžným životě</h2>
+        <p class="section-subtitle">Reálný příklady, ne marketingový kecy</p>
       </div>
       <div class="services-grid rds-stagger">
 
-        <!-- Service 1: Automatizace procesů -->
+        <!-- Use Case 1: Process Automation -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -236,10 +295,10 @@
             </svg>
           </div>
           <h3 class="service-title">Automatizace procesů</h3>
-          <p class="service-description">Automatizujeme opakující se úkoly a pracovní postupy. Od jednoduchých workflow po komplexní schvalovací procesy – vše na míru.</p>
+          <p class="service-description">Mám agenty, co mi auto-řadí downloady, přejmenovávaj soubory podle obsahu, hazí výdaje do správný složky a připomínaj, když něco potřebuje pozornost. Už žádný "kde sakra jsem to uložil".</p>
         </div>
 
-        <!-- Service 2: Integrace systémů -->
+        <!-- Use Case 2: System Integration -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -248,10 +307,10 @@
             </svg>
           </div>
           <h3 class="service-title">Integrace systémů</h3>
-          <p class="service-description">Propojíme vaše aplikace a nástroje do jednoho funkčního celku. API napojení, synchronizace dat a eliminace ručního přepisování.</p>
+          <p class="service-description">Můj kalendář mluví s todo listem, bankovní CSV se nasává do tabulky, co auto-kategorizuje všechno, a Notion stránky se aktualizujou samy. Jeden agent, aby vládl všem.</p>
         </div>
 
-        <!-- Service 3: Lokální AI agenti -->
+        <!-- Use Case 3: Local AI Agents -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -268,10 +327,10 @@
             </svg>
           </div>
           <h3 class="service-title">Lokální AI agenti</h3>
-          <p class="service-description">Nasazení lokálních AI modelů (Ollama, LLM) přímo na vašem hardware. Vaše data nikdy neopustí vaši infrastrukturu – maximální ochrana soukromí.</p>
+          <p class="service-description">Plný agenti běžící na mým laptopu nebo domácím serveru. Čtou mý maily, draftujou odpovědi, researchujou věci, dokonce píšou kód — a nic nikdy neopustí moje zařízení. Doslova si s nima povídám jako s kolegy.</p>
         </div>
 
-        <!-- Service 4: Datová analýza -->
+        <!-- Use Case 4: Data Analytics -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -281,10 +340,10 @@
             </svg>
           </div>
           <h3 class="service-title">Datová analýza</h3>
-          <p class="service-description">Automatická extrakce, transformace a vizualizace dat. Přehledné dashboardy a pravidelné reporty bez manuální práce.</p>
+          <p class="service-description">Házím tam random CSV (výdaje, tréninky, čtení) a agent plivne týdenní souhrny, grafy a "hele, zase jsi utratil moc na kafe" zprávy. Nula manuální Excel tortury.</p>
         </div>
 
-        <!-- Service 5: Automatizace e-mailů -->
+        <!-- Use Case 5: Email Automation -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -293,10 +352,10 @@
             </svg>
           </div>
           <h3 class="service-title">Automatizace e-mailů</h3>
-          <p class="service-description">Automatizované oslovování, follow-up zprávy a odpovědi. Personalizovaná komunikace ve velkém měřítku s chytrými spouštěči.</p>
+          <p class="service-description">Ne spam — chytrý follow-up. Můj agent ví, s kterýma lidma chci fakt zůstat v kontaktu a posílá slušný "jen se ozývám" maily ve správnou chvíli. Ušetřil mi hodiny každý týden.</p>
         </div>
 
-        <!-- Service 6: Školení a konzultace -->
+        <!-- Use Case 6: Training & Consulting -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -305,7 +364,7 @@
             </svg>
           </div>
           <h3 class="service-title">Školení a konzultace</h3>
-          <p class="service-description">Naučíme váš tým spravovat automatizace. Kompletní dokumentace, školení a průběžná technická podpora.</p>
+          <p class="service-description">Sednu si s tebou (nebo skočím na hovor) a postavím přesně ten agent, co potřebuješ. Nebo tě naučím, jak rozjet vlastní lokální setup, abys nebyl závislej na mně ani na žádný firmě.</p>
         </div>
 
       </div>
@@ -319,8 +378,8 @@
     <div class="rds-container">
       <div class="section-header rds-fade-in">
         <span class="section-tag">// NÁSTROJE</span>
-        <h2 class="section-title">Bezplatné online nástroje</h2>
-        <p class="section-subtitle">Výkonné nástroje přímo ve vašem prohlížeči – bez registrace, bez odesílání dat</p>
+        <h2 class="section-title">Nástroje, co jsem postavil, protože jsem je potřeboval</h2>
+        <p class="section-subtitle">Žádný marketing, prostě mi chyběly, tak jsem je udělal</p>
       </div>
       <div class="tools-grid rds-stagger">
 
@@ -360,8 +419,8 @@
           <div class="tool-card-body">
             <h3 class="tool-card-title">Univerzální konvertor souborů</h3>
             <p class="tool-card-description">
-              Převádějte obrázky, video, audio, dokumenty i CAD/CAM soubory (STL, DXF, OBJ).
-              Veškeré zpracování probíhá 100&nbsp;% na straně klienta – žádná data se neodesílají na server.
+              Obrázky, video, audio, PDF, STL, DXF… všechno běží 100 % v prohlížeči přes WASM + FFmpeg + ImageMagick. 
+              Používám to denně, takže jsem to udělal free a privátní.
             </p>
             <div class="tool-card-tech">
               <span>WASM</span>
@@ -405,8 +464,8 @@
           <div class="tool-card-body">
             <h3 class="tool-card-title">GoogleFont2SVG</h3>
             <p class="tool-card-description">
-              Převeďte písma Google Fonts na SVG cesty a DXF soubory pro CNC stroje, laserové řezání
-              a vysoce kvalitní vektorovou grafiku. Ideální pro designéry a výrobce.
+              Převeď jakýkoliv Google Font na perfektní SVG cesty nebo DXF pro laserový řez/CNC. 
+              Designuju věci a omrzely mě špatný konverze — tahle prostě funguje.
             </p>
             <div class="tool-card-tech">
               <span>OpenType.js</span>
@@ -423,43 +482,36 @@
   </section>
 
   <!-- ================================================================
-       ABOUT
+       WHY I DO THIS
        ================================================================ -->
-  <section id="about" class="about rds-section">
+  <section id="why" class="about rds-section">
     <div class="rds-container">
       <div class="section-header rds-fade-in">
-        <span class="section-tag">// O NÁS</span>
-        <h2 class="section-title">Proč automatizovat?</h2>
-        <p class="section-subtitle">Automatizace není luxus – je to strategická výhoda pro každou firmu</p>
+        <span class="section-tag">// FILOSOFIE</span>
+        <h2 class="section-title">Proč to dělám</h2>
       </div>
       <div class="about-grid">
 
         <!-- Left: content -->
         <div class="about-content rds-fade-in">
-          <p>
-            V dnešním rychle se měnícím světě je čas nejcennějším zdrojem. Automatizace odstraňuje
-            opakující se manuální úkoly, snižuje chybovost a umožňuje vašemu týmu soustředit se na to,
-            co skutečně přináší hodnotu – rozvoj podnikání a spokojené zákazníky.
+          <p style="font-size: 1.15rem; line-height: 1.8;">
+            Omrzelo mě trávit večery blbejma repetitivníma úkolama.
+            Agentní AI to změnila. Teď mi počítač fakt pracuje pro mě, ne obráceně.
           </p>
-          <p>
-            Specializujeme se na řešení šitá na míru pro malé a střední firmy. Od propojení stávajících
-            nástrojů přes nasazení lokálních AI modelů až po kompletní automatizaci pracovních postupů.
-            Vše s důrazem na jednoduchost, bezpečnost a měřitelné výsledky.
-          </p>
-          <p>
-            Kromě služeb vyvíjíme bezplatné open-source nástroje, které běží přímo v prohlížeči.
-            Žádné odesílání dat na servery, žádná registrace – jen výkonné technologie dostupné každému.
+          <p style="font-size: 1.15rem; line-height: 1.8; margin-top: 1rem;">
+            Všechno, co stavím, běží lokálně, protože nevěřím cloudovým firmám s mojejm datům.
+            A open-sourcuju nástroje, aby je mohl kdokoliv použít nebo vylepšit. Prostě tak.
           </p>
 
           <!-- Stats -->
           <div class="about-stats">
             <div class="about-stat rds-fade-in">
               <span class="about-stat-value">100%</span>
-              <span class="about-stat-label">Klientské zpracování</span>
+              <span class="about-stat-label">Lokální zpracování</span>
             </div>
             <div class="about-stat rds-fade-in">
-              <span class="about-stat-value">3</span>
-              <span class="about-stat-label">Jazyky</span>
+              <span class="about-stat-value">0</span>
+              <span class="about-stat-label">Dat odeslaných do cloudu</span>
             </div>
             <div class="about-stat rds-fade-in">
               <span class="about-stat-value">24/7</span>
@@ -477,8 +529,8 @@
               </svg>
             </div>
             <div class="about-feature-text">
-              <h4>100% zpracování na straně klienta</h4>
-              <p>Vaše soubory nikdy neopustí váš prohlížeč. Kompletní ochrana soukromí bez kompromisů.</p>
+              <h4>100% lokální zpracování</h4>
+              <p>Tvoje soubory nikdy neopustí prohlížeč. Kompletní soukromí bez kompromisů.</p>
             </div>
           </div>
           <div class="about-feature-item rds-fade-in">
@@ -489,8 +541,8 @@
               </svg>
             </div>
             <div class="about-feature-text">
-              <h4>Úspora času a nákladů</h4>
-              <p>Eliminace repetitivních úkolů znamená více času na strategický rozvoj a nižší provozní náklady.</p>
+              <h4>Úspora času</h4>
+              <p>Eliminace repetitivních úkolů = víc času na to, co fakt chceš dělat.</p>
             </div>
           </div>
           <div class="about-feature-item rds-fade-in">
@@ -509,21 +561,8 @@
               </svg>
             </div>
             <div class="about-feature-text">
-              <h4>Lokální AI bez odesílání dat</h4>
-              <p>AI modely běžící přímo na vašem hardware. Maximální soukromí bez závislosti na cloudu.</p>
-            </div>
-          </div>
-          <div class="about-feature-item rds-fade-in">
-            <div class="about-feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-            </div>
-            <div class="about-feature-text">
-              <h4>Podpora 3 jazyků</h4>
-              <p>Kompletní lokalizace do češtiny, angličtiny a němčiny – web i nástroje.</p>
+              <h4>Lokální AI bez špehování</h4>
+              <p>AI modely běžící přímo na tvým hardwaru. Maximální soukromí.</p>
             </div>
           </div>
           <div class="about-feature-item rds-fade-in">
@@ -533,8 +572,8 @@
               </svg>
             </div>
             <div class="about-feature-text">
-              <h4>Menší chybovost</h4>
-              <p>Automatizované procesy jsou konzistentní a spolehlivé – bez lidských chyb a opomenutí.</p>
+              <h4>Open-source</h4>
+              <p>Kód je otevřený. Kdokoli ho může použít, upravit nebo vylepšit.</p>
             </div>
           </div>
         </div>
@@ -550,8 +589,8 @@
     <div class="rds-container">
       <div class="section-header rds-fade-in">
         <span class="section-tag">// KONTAKT</span>
-        <h2 class="section-title">Spojte se s námi</h2>
-        <p class="section-subtitle">Připraveni automatizovat? Ozvěte se pro nezávaznou konzultaci</p>
+        <h2 class="section-title">Chceš něco automatizovat?</h2>
+        <p class="section-subtitle">Hoď mi zprávu — žádný sales pitch, prostě mi řekni, co tě štve v denní rutině, a podíváme se, jestli to agent může vyřešit.</p>
       </div>
       <div class="contact-grid">
 
@@ -586,7 +625,7 @@
               </svg>
             </div>
             <div class="contact-info-text">
-              Liberec, Česko
+              Liberec, Česká republika
             </div>
           </div>
           <div class="contact-info-item">
@@ -603,20 +642,20 @@
 
         <!-- Right: form -->
         <div class="rds-fade-in">
-          <div class="contact-success" role="alert">Zpráva byla úspěšně odeslána! Ozveme se co nejdříve.</div>
+          <div class="contact-success" role="alert">Zpráva odeslána! Ozvu se co nejdřív.</div>
           <form class="contact-form" action="https://formspree.io/f/xwvnpejd" method="POST">
             <input type="hidden" name="_subject" value="Nová poptávka RIPlay z webu">
             <div class="contact-form-group">
               <label for="contact-name" class="rds-label">Jméno</label>
-              <input type="text" id="contact-name" name="name" class="rds-input" placeholder="Vaše jméno" autocomplete="name" required>
+              <input type="text" id="contact-name" name="name" class="rds-input" placeholder="Tvoje jméno" autocomplete="name" required>
             </div>
             <div class="contact-form-group">
               <label for="contact-email" class="rds-label">E-mail</label>
-              <input type="email" id="contact-email" name="email" class="rds-input" placeholder="vas@email.cz" autocomplete="email" required>
+              <input type="email" id="contact-email" name="email" class="rds-input" placeholder="tvuj@email.cz" autocomplete="email" required>
             </div>
             <div class="contact-form-group">
               <label for="contact-message" class="rds-label">Zpráva</label>
-              <textarea id="contact-message" name="message" class="rds-input" rows="5" placeholder="Popište svůj projekt nebo potřebu automatizace…" required></textarea>
+              <textarea id="contact-message" name="message" class="rds-input" rows="5" placeholder="Popiš, co tě štve v denní rutině…" required></textarea>
             </div>
             <button type="submit" class="rds-btn rds-btn-primary">Odeslat zprávu</button>
           </form>
@@ -639,16 +678,16 @@
             <img src="rip-icon-black.png" alt="RIPlay" width="32" height="32">
             <span class="rds-mono">RIPLAY</span>
           </div>
-          <p class="footer-tagline">Automatizace pro moderní firmy. Bezplatné online nástroje pro každého.</p>
+          <p class="footer-tagline">Agentní AI pro reálnej život. Nástroje, co fakt fungujou.</p>
         </div>
 
         <!-- Nav links column -->
         <div>
           <h4 class="footer-column-title">Navigace</h4>
           <div class="footer-links">
-            <a href="#services">Služby</a>
+            <a href="#usecases">Použití</a>
             <a href="#tools">Nástroje</a>
-            <a href="#about">O nás</a>
+            <a href="#why">Proč to dělám</a>
             <a href="#contact">Kontakt</a>
           </div>
         </div>
@@ -670,6 +709,19 @@
       </div>
     </div>
   </footer>
+
+  <!-- ================================================================
+       COOKIE CONSENT BANNER
+       ================================================================ -->
+  <div id="cookie-banner" class="cookie-banner" style="display: none;">
+    <div class="cookie-content">
+      <p>Tahle stránka používá Google Analytics na míření návštěvnosti. Žádný marketingový cookies, jen základní statistiky.</p>
+      <div class="cookie-buttons">
+        <button onclick="acceptCookies()" class="rds-btn rds-btn-primary">Přijmout</button>
+        <button onclick="declineCookies()" class="rds-btn rds-btn-secondary">Odmítnout</button>
+      </div>
+    </div>
+  </div>
 
   <script src="js/script.js"></script>
 </body>

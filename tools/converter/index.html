@@ -3,13 +3,43 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FWR9G2XB2W"></script>
+  <!-- Google Analytics 4 - loaded after cookie consent -->
   <script>
+    // Cookie consent handling for GA4
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-FWR9G2XB2W');
+    
+    // Check consent on load
+    if (localStorage.getItem('cookie-consent') === 'accepted') {
+      loadGA4();
+    }
+    
+    function loadGA4() {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-FWR9G2XB2W';
+      document.head.appendChild(script);
+      gtag('js', new Date());
+      gtag('config', 'G-FWR9G2XB2W');
+    }
+    
+    function acceptCookies() {
+      localStorage.setItem('cookie-consent', 'accepted');
+      loadGA4();
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    function declineCookies() {
+      localStorage.setItem('cookie-consent', 'declined');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    // Show banner if no consent decision made
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!localStorage.getItem('cookie-consent')) {
+        document.getElementById('cookie-banner').style.display = 'flex';
+      }
+    });
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Universal File Converter — CAD/CAM, Video, Image, Document | RIPlay</title>
@@ -257,6 +287,17 @@
   </footer>
 
   <script type="module" src="src/main.ts"></script>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-banner" class="cookie-banner" style="display: none;">
+    <div class="cookie-content">
+      <p>This site uses Google Analytics for basic traffic stats. No marketing cookies, just the basics.</p>
+      <div class="cookie-buttons">
+        <button onclick="acceptCookies()" class="rds-btn rds-btn-primary">Accept</button>
+        <button onclick="declineCookies()" class="rds-btn rds-btn-secondary">Decline</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

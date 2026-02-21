@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RIPlay — Automation Services &amp; Free Online Tools</title>
-  <meta name="description" content="Workflow automation, system integration, and local AI solutions for businesses. Free online tools: file converter, GoogleFont2SVG. Liberec, Czech Republic.">
-  <meta name="keywords" content="workflow automation, process automation, AI agents, system integration, file converter, free online tools, GoogleFont2SVG, data analytics, email automation, Liberec, Czech Republic">
+  <title>RIPlay — I Automate the Boring Shit with Agentic AI | Liberec</title>
+  <meta name="description" content="I build local AI agents that actually do stuff — sort emails, track expenses, handle repetitive tasks — all running on my own hardware, zero cloud, zero spying. Plus free tools: file converter, GoogleFont2SVG.">
+  <meta name="keywords" content="agentic AI, local AI, Ollama, process automation, AI agents, system integration, file converter, free online tools, GoogleFont2SVG, data analytics, email automation, Liberec, Czech Republic">
   <meta name="robots" content="index, follow">
   <meta name="author" content="RIPlay – Stan Wesly">
   <link rel="canonical" href="https://riplay.cz/en.html">
@@ -17,8 +17,8 @@
   <link rel="alternate" hreflang="x-default" href="https://riplay.cz/en.html">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="RIPlay — Automation Services &amp; Free Online Tools">
-  <meta property="og:description" content="Workflow automation, system integration, and local AI solutions. Free file converters and vector font tools.">
+  <meta property="og:title" content="RIPlay — I Automate the Boring Shit with Agentic AI">
+  <meta property="og:description" content="I build local AI agents that actually do stuff. Plus free tools: file converter, GoogleFont2SVG.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://riplay.cz/en.html">
   <meta property="og:image" content="https://riplay.cz/logo.png">
@@ -27,8 +27,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RIPlay — Automation Services &amp; Free Online Tools">
-  <meta name="twitter:description" content="Workflow automation, system integration, and local AI solutions. Free file converters and vector font tools.">
+  <meta name="twitter:title" content="RIPlay — I Automate the Boring Shit with Agentic AI">
+  <meta name="twitter:description" content="I build local AI agents that actually do stuff. Plus free tools: file converter, GoogleFont2SVG.">
   <meta name="twitter:image" content="https://riplay.cz/logo.png">
 
   <!-- Favicon, manifest, theme-color -->
@@ -36,54 +36,61 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#e85d26">
 
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FWR9G2XB2W"></script>
+  <!-- Google Analytics 4 - loaded after cookie consent -->
   <script>
+    // Cookie consent handling for GA4
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-FWR9G2XB2W');
+    
+    // Check consent on load
+    if (localStorage.getItem('cookie-consent') === 'accepted') {
+      loadGA4();
+    }
+    
+    function loadGA4() {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-FWR9G2XB2W';
+      document.head.appendChild(script);
+      gtag('js', new Date());
+      gtag('config', 'G-FWR9G2XB2W');
+    }
+    
+    function acceptCookies() {
+      localStorage.setItem('cookie-consent', 'accepted');
+      loadGA4();
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    function declineCookies() {
+      localStorage.setItem('cookie-consent', 'declined');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    // Show banner if no consent decision made
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!localStorage.getItem('cookie-consent')) {
+        document.getElementById('cookie-banner').style.display = 'flex';
+      }
+    });
   </script>
 
-  <!-- JSON-LD: LocalBusiness -->
+  <!-- JSON-LD: Person -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "RIPlay – Automation for Businesses",
-    "description": "Workflow automation, system integration, local AI solutions, and free online tools.",
-    "url": "https://riplay.cz/en.html",
-    "logo": "https://riplay.cz/logo.png",
-    "telephone": "+420776479855",
-    "email": "stanwesly@protonmail.com",
+    "@type": "Person",
+    "name": "Stan Wesly",
+    "url": "https://riplay.cz/",
+    "sameAs": [
+      "https://github.com/Aeell"
+    ],
+    "jobTitle": "AI Automation Developer",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Mokrá 68",
-      "addressLocality": "Liberec-Machnín",
-      "postalCode": "460 01",
+      "addressLocality": "Liberec",
       "addressCountry": "CZ"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 50.767113,
-      "longitude": 15.056199
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+420776479855",
-      "contactType": "customer service",
-      "availableLanguage": ["Czech", "English", "German"]
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-      "opens": "11:00",
-      "closes": "17:00"
-    },
-    "sameAs": [
-      "https://github.com/Aeell",
-      "https://g.co/kgs/5m6Z8q2"
-    ]
+    }
   }
   </script>
 
@@ -92,7 +99,7 @@
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "RIPlay Services",
+    "name": "RIPlay Use Cases",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Process Automation" },
       { "@type": "ListItem", "position": 2, "name": "System Integration" },
@@ -100,48 +107,6 @@
       { "@type": "ListItem", "position": 4, "name": "Data Analytics" },
       { "@type": "ListItem", "position": 5, "name": "Email Automation" },
       { "@type": "ListItem", "position": 6, "name": "Training & Consulting" }
-    ]
-  }
-  </script>
-
-  <!-- JSON-LD: FAQPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is process automation and how can it help me?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Process automation eliminates repetitive manual tasks using software. You save time, reduce errors, and free up your team's capacity for more important work."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Are your online tools really free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, our universal file converter and GoogleFont2SVG are completely free. All processing happens directly in your browser — no data is sent to any server."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What are local AI agents?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Local AI agents run directly on your hardware using models like Ollama. Your data never leaves your infrastructure, making them ideal for businesses with strict data privacy requirements."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What file formats does the converter support?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The converter supports images, video, audio, documents, CAD/CAM files (STL, DXF, OBJ), and many more formats. It uses WASM, FFmpeg, and ImageMagick technologies directly in the browser."
-        }
-      }
     ]
   }
   </script>
@@ -180,9 +145,9 @@
         <span></span><span></span><span></span>
       </button>
       <div class="rds-nav-links">
-        <a href="#services" class="rds-nav-link">Services</a>
+        <a href="#usecases" class="rds-nav-link">Use Cases</a>
         <a href="#tools" class="rds-nav-link">Tools</a>
-        <a href="#about" class="rds-nav-link">About</a>
+        <a href="#why" class="rds-nav-link">Why</a>
         <a href="#contact" class="rds-nav-link">Contact</a>
         <div class="lang-switch">
           <a href="index.html" class="lang-switch-btn" title="Čeština">CS</a>
@@ -198,36 +163,63 @@
        ================================================================ -->
   <header class="hero">
     <div class="hero-content">
-      <div class="hero-badge rds-mono">// AUTOMATION &amp; TOOLS</div>
+      <div class="hero-badge rds-mono">// AGENTIC AI IN REAL LIFE</div>
       <h1 class="hero-title">
-        We <span class="rds-text-gradient">Automate</span><br>
-        Your Business Workflows
+        RIPlay — I Automate<br>
+        <span class="rds-text-gradient">the Boring Shit in Life</span>
       </h1>
       <p class="hero-subtitle">
-        We help businesses save time and money through intelligent automation.
-        Plus, we offer <span class="rds-mono">free online tools</span> for file conversion and font processing.
+        Hey, I'm the guy behind RIPlay. I build local AI agents that actually do stuff for me — 
+        sort emails, track expenses, generate reports, handle repetitive tasks — 
+        all running on my own hardware, zero cloud, zero spying.
       </p>
-      <div class="hero-typed" data-typed-text="Automating workflows since 2024"></div>
+      <p class="hero-subtitle" style="margin-top: 0.5rem;">
+        I also open-sourced a couple of tools I needed myself (file converter + GoogleFont2SVG). 
+        No sign-up, no data leaving your browser.
+      </p>
       <div class="hero-cta-group">
-        <a href="#services" class="rds-btn rds-btn-primary">Our Services</a>
-        <a href="#tools" class="rds-btn rds-btn-secondary">Try Our Tools</a>
+        <a href="#usecases" class="rds-btn rds-btn-primary">How I Use It</a>
+        <a href="#tools" class="rds-btn rds-btn-secondary">Try the Tools</a>
       </div>
     </div>
   </header>
 
   <!-- ================================================================
-       SERVICES
+       ABOUT ME
        ================================================================ -->
-  <section id="services" class="services rds-section">
+  <section id="about" class="about rds-section" style="padding-top: 4rem; padding-bottom: 4rem;">
+    <div class="rds-container">
+      <div class="about-content rds-fade-in" style="max-width: 800px;">
+        <p style="font-size: 1.15rem; line-height: 1.8;">
+          I'm not a company. I'm just a dude from Liberec who got tired of doing the same crap every day.
+          So I started playing with local LLMs (Ollama + crew of agents) and suddenly my computer started handling half my life admin.
+        </p>
+        <p style="font-size: 1.15rem; line-height: 1.8; margin-top: 1rem;">
+          Now I help other people do the same — whether it's one simple agent for your side hustle or a full swarm that runs your personal systems. 
+          Everything privacy-first, open-source where possible, and actually useful.
+        </p>
+        <p style="font-size: 0.95rem; color: var(--rds-iron); margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+          This whole site was vibe-coded by me + my AI squad:<br>
+          <strong>Grok (xAI)</strong>, <strong>Claude Opus 4.6</strong>, <strong>Z.ai GLM-5</strong> 
+          and local <strong>Qwen3-30B-A3B</strong> via Ollama that finally pushed it live.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       USE CASES
+       ================================================================ -->
+  <section id="usecases" class="services rds-section">
     <div class="rds-container">
       <div class="section-header rds-fade-in">
-        <span class="section-tag">// SERVICES</span>
-        <h2 class="section-title">What We Can Do For You</h2>
-        <p class="section-subtitle">Comprehensive automation solutions tailored to your business needs</p>
+        <span class="section-tag">// USE CASES</span>
+        <h2 class="section-title">Real Ways I Use Agentic AI in Everyday Life</h2>
+        <p class="section-subtitle">Real examples, no marketing BS</p>
       </div>
       <div class="services-grid rds-stagger">
 
-        <!-- Service 1: Process Automation -->
+        <!-- Use Case 1: Process Automation -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -236,10 +228,10 @@
             </svg>
           </div>
           <h3 class="service-title">Process Automation</h3>
-          <p class="service-description">We automate repetitive tasks and workflows. From simple workflows to complex approval processes — everything custom-built for you.</p>
+          <p class="service-description">I have agents that auto-sort my downloads, rename files by content, move expenses to the right folder, and remind me when something needs attention. No more "where the fuck did I save that".</p>
         </div>
 
-        <!-- Service 2: System Integration -->
+        <!-- Use Case 2: System Integration -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -248,10 +240,10 @@
             </svg>
           </div>
           <h3 class="service-title">System Integration</h3>
-          <p class="service-description">We connect your applications and tools into one unified system. API integration, data synchronization, and elimination of manual data entry.</p>
+          <p class="service-description">My calendar talks to my todo list, my bank CSV gets sucked into a spreadsheet that auto-categorizes everything, and my Notion pages update themselves. One agent to rule them all.</p>
         </div>
 
-        <!-- Service 3: Local AI Agents -->
+        <!-- Use Case 3: Local AI Agents -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -268,10 +260,10 @@
             </svg>
           </div>
           <h3 class="service-title">Local AI Agents</h3>
-          <p class="service-description">Deployment of local AI models (Ollama, LLM) directly on your hardware. Your data never leaves your infrastructure — maximum privacy protection.</p>
+          <p class="service-description">Full agents running on my laptop or home server. They read my emails, draft replies, research stuff, even write code for me — and nothing ever leaves my machine. I literally talk to them like teammates.</p>
         </div>
 
-        <!-- Service 4: Data Analytics -->
+        <!-- Use Case 4: Data Analytics -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -281,10 +273,10 @@
             </svg>
           </div>
           <h3 class="service-title">Data Analytics</h3>
-          <p class="service-description">Automated data extraction, transformation, and visualization. Clear dashboards and regular reports without manual effort.</p>
+          <p class="service-description">I throw in my random CSVs (expenses, workouts, reading list) and the agent spits out weekly summaries, graphs, and "hey you spent too much on coffee again" messages. Zero manual Excel torture.</p>
         </div>
 
-        <!-- Service 5: Email Automation -->
+        <!-- Use Case 5: Email Automation -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -293,10 +285,10 @@
             </svg>
           </div>
           <h3 class="service-title">Email Automation</h3>
-          <p class="service-description">Automated outreach, follow-up messages, and replies. Personalized communication at scale with smart triggers.</p>
+          <p class="service-description">Not spam — smart follow-ups. My agent knows which people I actually want to stay in touch with and sends polite "just checking in" emails at the right moment. Saved me hours every week.</p>
         </div>
 
-        <!-- Service 6: Training & Consulting -->
+        <!-- Use Case 6: Training & Consulting -->
         <div class="service-card rds-fade-in">
           <div class="service-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -304,8 +296,8 @@
               <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
             </svg>
           </div>
-          <h3 class="service-title">Training &amp; Consulting</h3>
-          <p class="service-description">We train your team to manage automations. Complete documentation, training sessions, and ongoing technical support.</p>
+          <h3 class="service-title">Training & Consulting</h3>
+          <p class="service-description">I'll sit with you (or hop on a call) and build exactly the agent you need. Or teach you how to run your own local setup so you're not dependent on me or any company.</p>
         </div>
 
       </div>
@@ -319,8 +311,8 @@
     <div class="rds-container">
       <div class="section-header rds-fade-in">
         <span class="section-tag">// TOOLS</span>
-        <h2 class="section-title">Free Online Tools</h2>
-        <p class="section-subtitle">Powerful tools right in your browser — no registration, no data uploads</p>
+        <h2 class="section-title">Tools I Built Because I Needed Them</h2>
+        <p class="section-subtitle">No marketing, I just needed them so I made them</p>
       </div>
       <div class="tools-grid rds-stagger">
 
@@ -328,7 +320,6 @@
         <a href="tools/converter/" class="tool-card rds-fade-in" aria-label="Open Universal File Converter">
           <div class="tool-card-preview">
             <svg class="tool-card-illustration" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Background gradient -->
               <defs>
                 <linearGradient id="converter-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.2" />
@@ -336,18 +327,14 @@
                 </linearGradient>
               </defs>
               <rect width="200" height="120" fill="url(#converter-grad)"/>
-              <!-- File icons -->
               <rect x="30" y="30" width="40" height="50" rx="4" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
               <rect x="35" y="40" width="20" height="3" rx="1" fill="#6366f1"/>
               <rect x="35" y="47" width="25" height="3" rx="1" fill="#6366f1" opacity="0.6"/>
               <rect x="35" y="54" width="15" height="3" rx="1" fill="#6366f1" opacity="0.4"/>
-              <!-- Arrow -->
               <path d="M85 55 L105 55 L100 50 M105 55 L100 60" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <!-- Output file -->
               <rect x="130" y="30" width="40" height="50" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
               <circle cx="150" cy="50" r="12" stroke="#10b981" stroke-width="2" fill="none"/>
               <path d="M150 42 L150 58 M142 50 L158 50" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
-              <!-- Format labels -->
               <text x="50" y="95" fill="#94a3b8" font-family="monospace" font-size="8">PNG</text>
               <text x="85" y="95" fill="#94a3b8" font-family="monospace" font-size="8">MP4</text>
               <text x="120" y="95" fill="#94a3b8" font-family="monospace" font-size="8">STL</text>
@@ -360,8 +347,8 @@
           <div class="tool-card-body">
             <h3 class="tool-card-title">Universal File Converter</h3>
             <p class="tool-card-description">
-              Convert images, video, audio, documents, and CAD/CAM files (STL, DXF, OBJ).
-              All processing is 100&nbsp;% client-side — no data is sent to any server.
+              Images, video, audio, PDFs, STL, DXF… everything runs 100% in your browser with WASM + FFmpeg + ImageMagick. 
+              I use it daily, so I made it free and private.
             </p>
             <div class="tool-card-tech">
               <span>WASM</span>
@@ -377,7 +364,6 @@
         <a href="tools/googlefont2svg/" class="tool-card rds-fade-in" aria-label="Open GoogleFont2SVG">
           <div class="tool-card-preview">
             <svg class="tool-card-illustration" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Background gradient -->
               <defs>
                 <linearGradient id="font-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.2" />
@@ -385,18 +371,14 @@
                 </linearGradient>
               </defs>
               <rect width="200" height="120" fill="url(#font-grad)"/>
-              <!-- Letter A outline -->
               <path d="M60 85 L75 35 L90 85 M65 70 L85 70" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <!-- Letter b outline -->
               <path d="M110 35 L110 85 M110 35 Q130 35 130 52.5 Q130 70 110 70" stroke="#ef4444" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <!-- Vector points -->
               <circle cx="60" cy="85" r="3" fill="#f59e0b"/>
               <circle cx="75" cy="35" r="3" fill="#f59e0b"/>
               <circle cx="90" cy="85" r="3" fill="#f59e0b"/>
               <circle cx="110" cy="35" r="3" fill="#ef4444"/>
               <circle cx="130" cy="52.5" r="3" fill="#ef4444"/>
-              <!-- SVG path text -->
-              <text x="40" y="105" fill="#94a3b8" font-family="monospace" font-size="7">&lt;path d="M..."&gt;</text>
+              <text x="40" y="105" fill="#94a3b8" font-family="monospace" font-size="7"><path d="M..."></text>
             </svg>
             <div class="tool-card-badge">
               <span class="rds-badge rds-badge-success">FREE</span>
@@ -405,8 +387,8 @@
           <div class="tool-card-body">
             <h3 class="tool-card-title">GoogleFont2SVG</h3>
             <p class="tool-card-description">
-              Convert Google Fonts to SVG paths and DXF files for CNC machines, laser cutting,
-              and high-quality vector graphics. Perfect for designers and manufacturers.
+              Turn any Google Font into perfect SVG paths or DXF for laser cutters/CNC. 
+              I design stuff and got tired of shitty conversions — this one just works.
             </p>
             <div class="tool-card-tech">
               <span>OpenType.js</span>
@@ -423,43 +405,36 @@
   </section>
 
   <!-- ================================================================
-       ABOUT
+       WHY I DO THIS
        ================================================================ -->
-  <section id="about" class="about rds-section">
+  <section id="why" class="about rds-section">
     <div class="rds-container">
       <div class="section-header rds-fade-in">
-        <span class="section-tag">// ABOUT</span>
-        <h2 class="section-title">Why Automate?</h2>
-        <p class="section-subtitle">Automation isn't a luxury — it's a strategic advantage for every business</p>
+        <span class="section-tag">// PHILOSOPHY</span>
+        <h2 class="section-title">Why I Do This</h2>
       </div>
       <div class="about-grid">
 
         <!-- Left: content -->
         <div class="about-content rds-fade-in">
-          <p>
-            In today's fast-paced world, time is the most valuable resource. Automation eliminates
-            repetitive manual tasks, reduces errors, and allows your team to focus on what truly
-            matters — growing your business and keeping customers happy.
+          <p style="font-size: 1.15rem; line-height: 1.8;">
+            I got fed up with wasting evenings on dumb repetitive tasks.
+            Agentic AI changed that. Now my computer actually works for me instead of the other way around.
           </p>
-          <p>
-            We specialize in custom solutions for small and medium businesses. From connecting existing
-            tools to deploying local AI models and fully automating workflows.
-            All with a focus on simplicity, security, and measurable results.
-          </p>
-          <p>
-            Beyond our services, we develop free open-source tools that run directly in your browser.
-            No data uploads to servers, no registration — just powerful technology accessible to everyone.
+          <p style="font-size: 1.15rem; line-height: 1.8; margin-top: 1rem;">
+            Everything I build runs locally because I don't trust cloud companies with my data.
+            And I open-source the tools so anyone can use or improve them. Simple as that.
           </p>
 
           <!-- Stats -->
           <div class="about-stats">
             <div class="about-stat rds-fade-in">
               <span class="about-stat-value">100%</span>
-              <span class="about-stat-label">Client-side Processing</span>
+              <span class="about-stat-label">Local Processing</span>
             </div>
             <div class="about-stat rds-fade-in">
-              <span class="about-stat-value">3</span>
-              <span class="about-stat-label">Languages</span>
+              <span class="about-stat-value">0</span>
+              <span class="about-stat-label">Data Sent to Cloud</span>
             </div>
             <div class="about-stat rds-fade-in">
               <span class="about-stat-value">24/7</span>
@@ -477,8 +452,8 @@
               </svg>
             </div>
             <div class="about-feature-text">
-              <h4>100% Client-side Processing</h4>
-              <p>Your files never leave your browser. Complete privacy protection with no compromises.</p>
+              <h4>100% Local Processing</h4>
+              <p>Your files never leave your browser. Complete privacy with no compromises.</p>
             </div>
           </div>
           <div class="about-feature-item rds-fade-in">
@@ -489,8 +464,8 @@
               </svg>
             </div>
             <div class="about-feature-text">
-              <h4>Time &amp; Cost Savings</h4>
-              <p>Eliminating repetitive tasks means more time for strategic growth and lower operational costs.</p>
+              <h4>Time Savings</h4>
+              <p>Eliminating repetitive tasks = more time for what you actually want to do.</p>
             </div>
           </div>
           <div class="about-feature-item rds-fade-in">
@@ -509,21 +484,8 @@
               </svg>
             </div>
             <div class="about-feature-text">
-              <h4>Local AI Without Data Uploads</h4>
-              <p>AI models running directly on your hardware. Maximum privacy without cloud dependency.</p>
-            </div>
-          </div>
-          <div class="about-feature-item rds-fade-in">
-            <div class="about-feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-            </div>
-            <div class="about-feature-text">
-              <h4>3 Language Support</h4>
-              <p>Full localization in Czech, English, and German — both the website and all tools.</p>
+              <h4>Local AI Without Spying</h4>
+              <p>AI models running directly on your hardware. Maximum privacy.</p>
             </div>
           </div>
           <div class="about-feature-item rds-fade-in">
@@ -533,8 +495,8 @@
               </svg>
             </div>
             <div class="about-feature-text">
-              <h4>Fewer Errors</h4>
-              <p>Automated processes are consistent and reliable — free from human mistakes and oversights.</p>
+              <h4>Open-Source</h4>
+              <p>Code is open. Anyone can use, modify, or improve it.</p>
             </div>
           </div>
         </div>
@@ -550,8 +512,8 @@
     <div class="rds-container">
       <div class="section-header rds-fade-in">
         <span class="section-tag">// CONTACT</span>
-        <h2 class="section-title">Get In Touch</h2>
-        <p class="section-subtitle">Ready to automate? Reach out for a free consultation</p>
+        <h2 class="section-title">Want to Automate Something in Your Life?</h2>
+        <p class="section-subtitle">Drop me a message — no sales pitch, just tell me what sucks in your daily routine and we'll see if an agent can kill it.</p>
       </div>
       <div class="contact-grid">
 
@@ -603,7 +565,7 @@
 
         <!-- Right: form -->
         <div class="rds-fade-in">
-          <div class="contact-success" role="alert">Your message has been sent successfully! We'll get back to you soon.</div>
+          <div class="contact-success" role="alert">Message sent! I'll get back to you soon.</div>
           <form class="contact-form" action="https://formspree.io/f/xwvnpejd" method="POST">
             <input type="hidden" name="_subject" value="New inquiry from RIPlay website">
             <div class="contact-form-group">
@@ -616,7 +578,7 @@
             </div>
             <div class="contact-form-group">
               <label for="contact-message" class="rds-label">Message</label>
-              <textarea id="contact-message" name="message" class="rds-input" rows="5" placeholder="Describe your project or automation needs…" required></textarea>
+              <textarea id="contact-message" name="message" class="rds-input" rows="5" placeholder="Tell me what sucks in your daily routine…" required></textarea>
             </div>
             <button type="submit" class="rds-btn rds-btn-primary">Send Message</button>
           </form>
@@ -639,16 +601,16 @@
             <img src="rip-icon-black.png" alt="RIPlay" width="32" height="32">
             <span class="rds-mono">RIPLAY</span>
           </div>
-          <p class="footer-tagline">Automation for modern businesses. Free online tools for everyone.</p>
+          <p class="footer-tagline">Agentic AI for real life. Tools that actually work.</p>
         </div>
 
         <!-- Nav links column -->
         <div>
           <h4 class="footer-column-title">Navigation</h4>
           <div class="footer-links">
-            <a href="#services">Services</a>
+            <a href="#usecases">Use Cases</a>
             <a href="#tools">Tools</a>
-            <a href="#about">About Us</a>
+            <a href="#why">Why I Do This</a>
             <a href="#contact">Contact</a>
           </div>
         </div>
@@ -670,6 +632,19 @@
       </div>
     </div>
   </footer>
+
+  <!-- ================================================================
+       COOKIE CONSENT BANNER
+       ================================================================ -->
+  <div id="cookie-banner" class="cookie-banner" style="display: none;">
+    <div class="cookie-content">
+      <p>This site uses Google Analytics for basic traffic stats. No marketing cookies, just the basics.</p>
+      <div class="cookie-buttons">
+        <button onclick="acceptCookies()" class="rds-btn rds-btn-primary">Accept</button>
+        <button onclick="declineCookies()" class="rds-btn rds-btn-secondary">Decline</button>
+      </div>
+    </div>
+  </div>
 
   <script src="js/script.js"></script>
 </body>

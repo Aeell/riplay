@@ -1044,3 +1044,65 @@
     height: 44px;
   }
 }
+
+
+/* ==========================================================================
+   14. COOKIE CONSENT BANNER
+   ========================================================================== */
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(8, 9, 13, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(232, 93, 38, 0.2);
+  padding: var(--rds-space-4) var(--rds-space-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cookie-content {
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rds-space-6);
+  width: 100%;
+}
+
+.cookie-content p {
+  color: var(--rds-silver);
+  font-size: var(--rds-text-sm);
+  line-height: var(--rds-leading-relaxed);
+  margin: 0;
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: var(--rds-space-3);
+  flex-shrink: 0;
+}
+
+.cookie-buttons .rds-btn {
+  white-space: nowrap;
+  font-size: var(--rds-text-sm);
+  padding: var(--rds-space-2) var(--rds-space-5);
+}
+
+@media (max-width: 768px) {
+  .cookie-content {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--rds-space-4);
+  }
+
+  .cookie-buttons {
+    width: 100%;
+    justify-content: center;
+  }
+ }
