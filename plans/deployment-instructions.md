@@ -197,7 +197,7 @@ This deployment includes:
    - Defers Google Analytics until user accepts
    - Stores consent in localStorage
 
-3. **Google Analytics 4** - Measurement ID: G-FWR9G2XB2W
+3. **Google Analytics 4** - Measurement ID: G-K93YKBS0JP
    - Only loads after cookie consent
    - Added to all pages
 
