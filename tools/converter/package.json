@@ -6,7 +6,8 @@
   "description": "RIPlay Universal File Converter with CAD/CAM support",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && bun run buildCache.js dist/cache.json",
+    "build": "tsc && vite build",
+    "build:cache": "bun run buildCache.js dist/cache.json",
     "preview": "vite preview",
     "install:deps": "npm install"
   },

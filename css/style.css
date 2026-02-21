@@ -326,6 +326,18 @@
   border-bottom: 1px solid var(--rds-steel);
 }
 
+/* SVG illustration styling */
+.tool-card-illustration {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform var(--rds-transition-slow);
+}
+
+.tool-card:hover .tool-card-illustration {
+  transform: scale(1.05);
+}
+
 .tool-card-preview img {
   width: 100%;
   height: 100%;

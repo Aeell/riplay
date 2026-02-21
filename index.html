@@ -32,7 +32,7 @@
   <meta name="twitter:image" content="https://riplay.cz/logo.png">
 
   <!-- Favicon, manifest, theme-color -->
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="rip-for-favicon.ico" type="image/x-icon">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#e85d26">
 
@@ -318,6 +318,32 @@
         <!-- Tool 1: Univerzální konvertor -->
         <a href="tools/converter/" class="tool-card rds-fade-in" aria-label="Otevřít Univerzální konvertor souborů">
           <div class="tool-card-preview">
+            <svg class="tool-card-illustration" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Background gradient -->
+              <defs>
+                <linearGradient id="converter-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.2" />
+                  <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1" />
+                </linearGradient>
+              </defs>
+              <rect width="200" height="120" fill="url(#converter-grad)"/>
+              <!-- File icons -->
+              <rect x="30" y="30" width="40" height="50" rx="4" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+              <rect x="35" y="40" width="20" height="3" rx="1" fill="#6366f1"/>
+              <rect x="35" y="47" width="25" height="3" rx="1" fill="#6366f1" opacity="0.6"/>
+              <rect x="35" y="54" width="15" height="3" rx="1" fill="#6366f1" opacity="0.4"/>
+              <!-- Arrow -->
+              <path d="M85 55 L105 55 L100 50 M105 55 L100 60" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <!-- Output file -->
+              <rect x="130" y="30" width="40" height="50" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+              <circle cx="150" cy="50" r="12" stroke="#10b981" stroke-width="2" fill="none"/>
+              <path d="M150 42 L150 58 M142 50 L158 50" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+              <!-- Format labels -->
+              <text x="50" y="95" fill="#94a3b8" font-family="monospace" font-size="8">PNG</text>
+              <text x="85" y="95" fill="#94a3b8" font-family="monospace" font-size="8">MP4</text>
+              <text x="120" y="95" fill="#94a3b8" font-family="monospace" font-size="8">STL</text>
+              <text x="155" y="95" fill="#94a3b8" font-family="monospace" font-size="8">DXF</text>
+            </svg>
             <div class="tool-card-badge">
               <span class="rds-badge rds-badge-success">ZDARMA</span>
             </div>
@@ -341,6 +367,28 @@
         <!-- Tool 2: GoogleFont2SVG -->
         <a href="tools/googlefont2svg/" class="tool-card rds-fade-in" aria-label="Otevřít GoogleFont2SVG">
           <div class="tool-card-preview">
+            <svg class="tool-card-illustration" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Background gradient -->
+              <defs>
+                <linearGradient id="font-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.2" />
+                  <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.1" />
+                </linearGradient>
+              </defs>
+              <rect width="200" height="120" fill="url(#font-grad)"/>
+              <!-- Letter A outline -->
+              <path d="M60 85 L75 35 L90 85 M65 70 L85 70" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <!-- Letter b outline -->
+              <path d="M110 35 L110 85 M110 35 Q130 35 130 52.5 Q130 70 110 70" stroke="#ef4444" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <!-- Vector points -->
+              <circle cx="60" cy="85" r="3" fill="#f59e0b"/>
+              <circle cx="75" cy="35" r="3" fill="#f59e0b"/>
+              <circle cx="90" cy="85" r="3" fill="#f59e0b"/>
+              <circle cx="110" cy="35" r="3" fill="#ef4444"/>
+              <circle cx="130" cy="52.5" r="3" fill="#ef4444"/>
+              <!-- SVG path text -->
+              <text x="40" y="105" fill="#94a3b8" font-family="monospace" font-size="7">&lt;path d="M..."&gt;</text>
+            </svg>
             <div class="tool-card-badge">
               <span class="rds-badge rds-badge-success">ZDARMA</span>
             </div>
@@ -551,11 +599,11 @@
             <input type="hidden" name="_subject" value="Nová poptávka RIPlay z webu">
             <div class="contact-form-group">
               <label for="contact-name" class="rds-label">Jméno</label>
-              <input type="text" id="contact-name" name="name" class="rds-input" placeholder="Vaše jméno" required>
+              <input type="text" id="contact-name" name="name" class="rds-input" placeholder="Vaše jméno" autocomplete="name" required>
             </div>
             <div class="contact-form-group">
               <label for="contact-email" class="rds-label">E-mail</label>
-              <input type="email" id="contact-email" name="email" class="rds-input" placeholder="vas@email.cz" required>
+              <input type="email" id="contact-email" name="email" class="rds-input" placeholder="vas@email.cz" autocomplete="email" required>
             </div>
             <div class="contact-form-group">
               <label for="contact-message" class="rds-label">Zpráva</label>
