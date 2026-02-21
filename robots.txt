@@ -8,6 +8,7 @@ Disallow: /plans/
 Disallow: /docs/
 Disallow: /.github/
 Disallow: /.kilocode/
+Disallow: /api/
 
 Sitemap: https://riplay.cz/sitemap.xml
 

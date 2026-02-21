@@ -22,17 +22,40 @@ We help businesses save time and reduce costs through intelligent automation:
 - **Training & Documentation** - Empower your team to manage automations
 - **Consulting** - Strategic advice on automation opportunities
 
-## 🛠️ Free Tools
+## 🛠️ Toolbox - Free Private Tools
 
-We offer free online tools for developers and designers:
+All tools are **free**, **private**, and run **client-side** (in your browser) whenever possible. Your data never leaves your device.
 
-- **[GoogleFont2SVG](tools/googlefont2svg/)** - Convert Google Fonts to SVG paths for vector graphics
-- **[Universal File Converter](tools/converter/)** - Convert files between various formats
+| Tool | Description | Tech |
+|------|-------------|------|
+| **[Universal File Converter](tools/converter/)** | Convert images, video, audio, PDF, STL, DXF, and more | WASM, FFmpeg, ImageMagick |
+| **[GoogleFont2SVG](tools/googlefont2svg/)** | Convert Google Fonts to SVG paths or DXF for laser/CNC | OpenType.js, MakerJS |
+| **[PDF Toolkit](tools/pdf-toolkit/)** | Merge, split, rotate, and compress PDF files | pdf-lib |
+| **[Image Compressor](tools/image-compressor/)** | Compress and convert images with before/after preview | Canvas API, Sharp |
+| **[QR Code Studio](tools/qr-studio/)** | Generate custom QR codes with colors and logo overlay | qrcode-generator |
+
+### Toolbox Hub
+
+- **[Toolbox (Czech)](tools/)** - Hlavní stránka nástrojů
+- **[Toolbox (English)](tools/en.html)** - Tools overview in English
+- **[Toolbox (German)](tools/de.html)** - Werkzeuge auf Deutsch
+
+### API Endpoints (Server-Side Processing)
+
+For large files (>20MB) or enhanced compression, server-side endpoints are available:
+
+- `POST /api/pdf/merge` - Merge multiple PDFs
+- `POST /api/pdf/split` - Split PDF by page ranges
+- `POST /api/pdf/compress` - Compress PDF files
+- `POST /api/image/compress` - Compress images with Sharp
+
+See [`api/`](api/) for server implementation details.
 
 ## 🌐 Website
 
 - **Main Site:** https://riplay.cz
 - **English Version:** https://riplay.cz/en.html
+- **German Version:** https://riplay.cz/de.html
 - **GitHub:** https://github.com/Aeell/riplay
 
 ## 📧 Contact

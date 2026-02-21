@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Toolbox — Free Private Tools | RIPlay</title>
+  <meta name="description" content="Free, private, client-side tools: file converter, GoogleFont2SVG, PDF Toolkit, image compressor, QR generator. Everything runs in your browser.">
+  <meta name="keywords" content="free online tools, file converter, PDF tools, image compressor, QR code generator, font to SVG, privacy">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="RIPlay – Stan Wesly">
+  <link rel="canonical" href="https://riplay.cz/tools/en.html">
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="cs" href="https://riplay.cz/tools/">
+  <link rel="alternate" hreflang="en" href="https://riplay.cz/tools/en.html">
+  <link rel="alternate" hreflang="de" href="https://riplay.cz/tools/de.html">
+  <link rel="alternate" hreflang="x-default" href="https://riplay.cz/tools/en.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Toolbox — Free Private Tools | RIPlay">
+  <meta property="og:description" content="Free, private, client-side tools. Everything runs in your browser – your data never leaves your device.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://riplay.cz/tools/en.html">
+  <meta property="og:image" content="https://riplay.cz/logo.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="RIPlay">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Toolbox — Free Private Tools | RIPlay">
+  <meta name="twitter:description" content="Free, private, client-side tools. Everything runs in your browser.">
+  <meta name="twitter:image" content="https://riplay.cz/logo.png">
+
+  <!-- Favicon, manifest, theme-color -->
+  <link rel="icon" href="../rip-for-favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#e85d26">
+
+  <!-- Google Analytics 4 - loaded after cookie consent -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    
+    if (localStorage.getItem('cookie-consent') === 'accepted') {
+      loadGA4();
+    }
+    
+    function loadGA4() {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-K93YKBS0JP';
+      document.head.appendChild(script);
+      gtag('js', new Date());
+      gtag('config', 'G-K93YKBS0JP');
+    }
+    
+    function acceptCookies() {
+      localStorage.setItem('cookie-consent', 'accepted');
+      loadGA4();
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    function declineCookies() {
+      localStorage.setItem('cookie-consent', 'declined');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!localStorage.getItem('cookie-consent')) {
+        document.getElementById('cookie-banner').style.display = 'flex';
+      }
+    });
+  </script>
+
+  <!-- JSON-LD: ItemList (tools) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "RIPlay Toolbox",
+    "description": "Collection of free online tools for file conversion, PDF manipulation, image compression, and QR code generation.",
+    "url": "https://riplay.cz/tools/",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Universal File Converter", "url": "https://riplay.cz/tools/converter/" },
+      { "@type": "ListItem", "position": 2, "name": "GoogleFont2SVG", "url": "https://riplay.cz/tools/googlefont2svg/" },
+      { "@type": "ListItem", "position": 3, "name": "PDF Toolkit", "url": "https://riplay.cz/tools/pdf-toolkit/" },
+      { "@type": "ListItem", "position": 4, "name": "Image Compressor", "url": "https://riplay.cz/tools/image-compressor/" },
+      { "@type": "ListItem", "position": 5, "name": "QR Code Studio", "url": "https://riplay.cz/tools/qr-studio/" }
+    ]
+  }
+  </script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <style>
+    /* Toolbox-specific styles */
+    .toolbox-hero {
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--rds-gradient-hero);
+      text-align: center;
+      padding: var(--rds-space-20) var(--rds-space-6);
+    }
+
+    .toolbox-hero-content {
+      max-width: 800px;
+    }
+
+    .toolbox-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      margin-bottom: var(--rds-space-4);
+    }
+
+    .toolbox-hero p {
+      font-size: var(--rds-text-lg);
+      color: var(--rds-silver);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .toolbox-section {
+      background: var(--rds-obsidian);
+      padding: var(--rds-space-16) 0;
+    }
+
+    .toolbox-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--rds-space-6);
+    }
+
+    @media (max-width: 1024px) {
+      .toolbox-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .toolbox-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Tool card - matches existing style */
+    .tool-card {
+      background: var(--rds-glass-bg);
+      backdrop-filter: var(--rds-glass-blur);
+      -webkit-backdrop-filter: var(--rds-glass-blur);
+      border: 1px solid var(--rds-glass-border);
+      border-radius: var(--rds-radius-xl);
+      overflow: hidden;
+      transition: all var(--rds-transition-slow);
+      position: relative;
+      display: block;
+      text-decoration: none;
+    }
+
+    .tool-card:hover {
+      transform: var(--rds-hover-lift);
+      border-color: rgba(232, 93, 38, 0.2);
+      box-shadow: var(--rds-shadow-glow);
+    }
+
+    .tool-card-preview {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      background: var(--rds-gunmetal);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--rds-steel);
+    }
+
+    .tool-card-illustration {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform var(--rds-transition-slow);
+    }
+
+    .tool-card:hover .tool-card-illustration {
+      transform: scale(1.05);
+    }
+
+    .tool-card-badge {
+      position: absolute;
+      top: var(--rds-space-3);
+      right: var(--rds-space-3);
+      z-index: 2;
+    }
+
+    .tool-card-body {
+      padding: var(--rds-space-6);
+    }
+
+    .tool-card-title {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 700;
+      color: var(--rds-white);
+      margin-bottom: var(--rds-space-2);
+    }
+
+    .tool-card-description {
+      color: var(--rds-silver);
+      font-size: var(--rds-text-sm);
+      line-height: var(--rds-leading-relaxed);
+      margin-bottom: var(--rds-space-4);
+    }
+
+    .tool-card-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--rds-space-2);
+      margin-bottom: var(--rds-space-4);
+    }
+
+    .tool-card-tech span {
+      font-family: var(--rds-font-mono);
+      font-size: var(--rds-text-xs);
+      color: var(--rds-iron);
+      padding: var(--rds-space-1) var(--rds-space-2);
+      background: rgba(42, 48, 64, 0.3);
+      border-radius: var(--rds-radius-sm);
+      border: 1px solid rgba(42, 48, 64, 0.5);
+    }
+
+    .tool-card .rds-btn-tool {
+      display: inline-flex;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       NAVIGATION
+       ================================================================ -->
+  <nav class="rds-nav" role="navigation" aria-label="Main navigation">
+    <div class="rds-container rds-nav-container">
+      <a href="../en.html" class="rds-nav-brand">
+        <img src="../rip-icon-black.png" alt="RIPlay" class="rds-nav-logo" width="36" height="36">
+        <span class="rds-nav-brand-text rds-mono">RIPLAY</span>
+      </a>
+      <button class="rds-hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="rds-nav-links">
+        <a href="../en.html#usecases" class="rds-nav-link">Use Cases</a>
+        <a href="../en.html#tools" class="rds-nav-link">Tools</a>
+        <a href="en.html" class="rds-nav-link active">Toolbox</a>
+        <a href="../en.html#why" class="rds-nav-link">Why</a>
+        <a href="../en.html#contact" class="rds-nav-link">Contact</a>
+        <div class="lang-switch">
+          <a href="index.html" class="lang-switch-btn" title="Čeština">CS</a>
+          <a href="en.html" class="lang-switch-btn active" title="English">EN</a>
+          <a href="de.html" class="lang-switch-btn" title="Deutsch">DE</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================================================================
+       HERO
+       ================================================================ -->
+  <header class="toolbox-hero">
+    <div class="toolbox-hero-content rds-fade-in">
+      <span class="hero-badge rds-mono">// TOOLBOX</span>
+      <h1 class="hero-title">
+        Toolbox — <span class="rds-text-gradient">Free Private Tools</span>
+      </h1>
+      <p class="hero-subtitle">
+        Free, private, client-side tools I built because I needed them. 
+        Most operations run 100% in your browser – your data never leaves your device.
+      </p>
+    </div>
+  </header>
+
+  <!-- ================================================================
+       TOOLS GRID
+       ================================================================ -->
+  <main class="toolbox-section rds-section">
+    <div class="rds-container">
+      <div class="toolbox-grid rds-stagger">
+
+        <!-- Tool 1: Universal File Converter -->
+        <a href="converter/" class="tool-card rds-fade-in" aria-label="Open Universal File Converter">
+          <div class="tool-card-preview">
+            <svg class="tool-card-illustration" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="converter-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.2" />
+                  <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1" />
+                </linearGradient>
+              </defs>
+              <rect width="200" height="120" fill="url(#converter-grad)"/>
+              <rect x="30" y="30" width="40" height="50" rx="4" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+              <rect x="35" y="40" width="20" height="3" rx="1" fill="#6366f1"/>
+              <rect x="35" y="47" width="25" height="3" rx="1" fill="#6366f1" opacity="0.6"/>
+              <rect x="35" y="54" width="15" height="3" rx="1" fill="#6366f1" opacity="0.4"/>
+              <path d="M85 55 L105 55 L100 50 M105 55 L100 60" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <rect x="130" y="30" width="40" height="50" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+              <circle cx="150" cy="50" r="12" stroke="#10b981" stroke-width="2" fill="none"/>
+              <path d="M150 42 L150 58 M142 50 L158 50" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+              <text x="50" y="95" fill="#94a3b8" font-family="monospace" font-size="8">PNG</text>
+              <text x="85" y="95" fill="#94a3b8" font-family="monospace" font-size="8">MP4</text>
+              <text x="120" y="95" fill="#94a3b8" font-family="monospace" font-size="8">STL</text>
+              <text x="155" y="95" fill="#94a3b8" font-family="monospace" font-size="8">DXF</text>
+            </svg>
+            <div class="tool-card-badge">
+              <span class="rds-badge rds-badge-success">FREE</span>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-card-title">Universal File Converter</h3>
+            <p class="tool-card-description">
+              Images, video, audio, PDF, STL, DXF… everything runs 100% in browser via WASM + FFmpeg + ImageMagick.
+            </p>
+            <div class="tool-card-tech">
+              <span>WASM</span>
+              <span>FFmpeg</span>
+              <span>ImageMagick</span>
+              <span>100% offline</span>
+            </div>
+            <span class="rds-btn rds-btn-tool">Open tool →</span>
+          </div>
+        </a>
+
+        <!-- Tool 2: GoogleFont2SVG -->
+        <a href="googlefont2svg/" class="tool-card rds-fade-in" aria-label="Open GoogleFont2SVG">
+          <div class="tool-card-preview">
+            <svg class="tool-card-illustration" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="font-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.2" />
+                  <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.1" />
+                </linearGradient>
+              </defs>
+              <rect width="200" height="120" fill="url(#font-grad)"/>
+              <path d="M60 85 L75 35 L90 85 M65 70 L85 70" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M110 35 L110 85 M110 35 Q130 35 130 52.5 Q130 70 110 70" stroke="#ef4444" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <circle cx="60" cy="85" r="3" fill="#f59e0b"/>
+              <circle cx="75" cy="35" r="3" fill="#f59e0b"/>
+              <circle cx="90" cy="85" r="3" fill="#f59e0b"/>
+              <circle cx="110" cy="35" r="3" fill="#ef4444"/>
+              <circle cx="130" cy="52.5" r="3" fill="#ef4444"/>
+              <text x="40" y="105" fill="#94a3b8" font-family="monospace" font-size="7"><path d="M..."></text>
+            </svg>
+            <div class="tool-card-badge">
+              <span class="rds-badge rds-badge-success">FREE</span>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-card-title">GoogleFont2SVG</h3>
+            <p class="tool-card-description">
+              Convert any Google Font to perfect SVG paths or DXF for laser cutting/CNC.
+            </p>
+            <div class="tool-card-tech">
+              <span>OpenType.js</span>
+              <span>MakerJS</span>
+              <span>SVG</span>
+              <span>DXF</span>
+            </div>
+            <span class="rds-btn rds-btn-tool">Open tool →</span>
+          </div>
+        </a>
+
+        <!-- Tool 3: PDF Toolkit -->
+        <a href="pdf-toolkit/" class="tool-card rds-fade-in" aria-label="Open PDF Toolkit">
+          <div class="tool-card-preview">
+            <svg class="tool-card-illustration" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="pdf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.2" />
+                  <stop offset="100%" style="stop-color:#e85d26;stop-opacity:0.1" />
+                </linearGradient>
+              </defs>
+              <rect width="200" height="120" fill="url(#pdf-grad)"/>
+              <rect x="40" y="25" width="50" height="65" rx="4" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+              <text x="55" y="55" fill="#ef4444" font-family="monospace" font-size="10" font-weight="bold">PDF</text>
+              <rect x="45" y="65" width="30" height="2" rx="1" fill="#ef4444" opacity="0.5"/>
+              <rect x="45" y="70" width="35" height="2" rx="1" fill="#ef4444" opacity="0.3"/>
+              <circle cx="115" cy="55" r="18" fill="#1e293b" stroke="#e85d26" stroke-width="2"/>
+              <path d="M115 45 L115 65 M105 55 L125 55" stroke="#e85d26" stroke-width="3" stroke-linecap="round"/>
+              <rect x="140" y="25" width="35" height="45" rx="3" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+              <rect x="145" y="30" width="25" height="2" rx="1" fill="#10b981" opacity="0.5"/>
+              <rect x="145" y="35" width="20" height="2" rx="1" fill="#10b981" opacity="0.3"/>
+              <path d="M95 55 L105 55" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <div class="tool-card-badge">
+              <span class="rds-badge rds-badge-success">FREE</span>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-card-title">PDF Toolkit</h3>
+            <p class="tool-card-description">
+              Merge, split, rotate, and compress PDF files. Drag & drop interface with page thumbnails.
+            </p>
+            <div class="tool-card-tech">
+              <span>pdf-lib</span>
+              <span>Drag & Drop</span>
+              <span>Compression</span>
+            </div>
+            <span class="rds-btn rds-btn-tool">Open tool →</span>
+          </div>
+        </a>
+
+        <!-- Tool 4: Image Compressor -->
+        <a href="image-compressor/" class="tool-card rds-fade-in" aria-label="Open Image Compressor">
+          <div class="tool-card-preview">
+            <svg class="tool-card-illustration" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="img-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.2" />
+                  <stop offset="100%" style="stop-color:#22d3ee;stop-opacity:0.1" />
+                </linearGradient>
+              </defs>
+              <rect width="200" height="120" fill="url(#img-grad)"/>
+              <rect x="30" y="30" width="55" height="55" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+              <circle cx="45" cy="45" r="8" fill="#10b981" opacity="0.3"/>
+              <path d="M35 75 L55 55 L70 70 L80 60 L80 75 Z" fill="#10b981" opacity="0.5"/>
+              <path d="M95 55 L115 55 L110 50 M115 55 L110 60" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <rect x="125" y="35" width="45" height="45" rx="4" fill="#1e293b" stroke="#22d3ee" stroke-width="2"/>
+              <circle cx="140" cy="50" r="6" fill="#22d3ee" opacity="0.3"/>
+              <path d="M130 70 L145 55 L160 65 L165 60 L165 70 Z" fill="#22d3ee" opacity="0.5"/>
+              <text x="55" y="105" fill="#94a3b8" font-family="monospace" font-size="8">2.4 MB</text>
+              <text x="135" y="105" fill="#10b981" font-family="monospace" font-size="8">420 KB</text>
+            </svg>
+            <div class="tool-card-badge">
+              <span class="rds-badge rds-badge-success">FREE</span>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-card-title">Image Compressor</h3>
+            <p class="tool-card-description">
+              Compress and convert images (JPG, PNG, WebP, AVIF) with before/after preview.
+            </p>
+            <div class="tool-card-tech">
+              <span>Canvas API</span>
+              <span>Sharp</span>
+              <span>Batch</span>
+            </div>
+            <span class="rds-btn rds-btn-tool">Open tool →</span>
+          </div>
+        </a>
+
+        <!-- Tool 5: QR Code Studio -->
+        <a href="qr-studio/" class="tool-card rds-fade-in" aria-label="Open QR Code Studio">
+          <div class="tool-card-preview">
+            <svg class="tool-card-illustration" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="qr-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.2" />
+                  <stop offset="100%" style="stop-color:#e85d26;stop-opacity:0.1" />
+                </linearGradient>
+              </defs>
+              <rect width="200" height="120" fill="url(#qr-grad)"/>
+              <rect x="50" y="25" width="20" height="20" fill="#8b5cf6"/>
+              <rect x="55" y="30" width="10" height="10" fill="#1e293b"/>
+              <rect x="130" y="25" width="20" height="20" fill="#8b5cf6"/>
+              <rect x="135" y="30" width="10" height="10" fill="#1e293b"/>
+              <rect x="50" y="75" width="20" height="20" fill="#8b5cf6"/>
+              <rect x="55" y="80" width="10" height="10" fill="#1e293b"/>
+              <rect x="80" y="45" width="5" height="5" fill="#e85d26"/>
+              <rect x="90" y="45" width="5" height="5" fill="#8b5cf6"/>
+              <rect x="100" y="45" width="5" height="5" fill="#e85d26"/>
+              <rect x="110" y="45" width="5" height="5" fill="#8b5cf6"/>
+              <rect x="80" y="55" width="5" height="5" fill="#8b5cf6"/>
+              <rect x="90" y="55" width="5" height="5" fill="#e85d26"/>
+              <rect x="100" y="55" width="5" height="5" fill="#8b5cf6"/>
+              <rect x="110" y="55" width="5" height="5" fill="#e85d26"/>
+              <rect x="80" y="65" width="5" height="5" fill="#e85d26"/>
+              <rect x="90" y="65" width="5" height="5" fill="#8b5cf6"/>
+              <rect x="100" y="65" width="5" height="5" fill="#e85d26"/>
+              <rect x="110" y="65" width="5" height="5" fill="#8b5cf6"/>
+              <circle cx="95" cy="55" r="8" fill="#1e293b" stroke="#e85d26" stroke-width="1.5"/>
+              <text x="85" y="105" fill="#94a3b8" font-family="monospace" font-size="7">Custom colors + logo</text>
+            </svg>
+            <div class="tool-card-badge">
+              <span class="rds-badge rds-badge-success">FREE</span>
+            </div>
+          </div>
+          <div class="tool-card-body">
+            <h3 class="tool-card-title">QR Code Studio</h3>
+            <p class="tool-card-description">
+              Generate custom QR codes with colors, logo, and adjustable size. Export to PNG/SVG.
+            </p>
+            <div class="tool-card-tech">
+              <span>qrcode-generator</span>
+              <span>Custom</span>
+              <span>PNG/SVG</span>
+            </div>
+            <span class="rds-btn rds-btn-tool">Open tool →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="footer">
+    <div class="rds-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-logo">
+            <img src="../rip-icon-black.png" alt="RIPlay" width="32" height="32">
+            <span class="rds-mono">RIPLAY</span>
+          </div>
+          <p class="footer-tagline">Agentic AI for real life. Tools that actually work.</p>
+        </div>
+        <div>
+          <h4 class="footer-column-title">Navigation</h4>
+          <div class="footer-links">
+            <a href="../en.html#usecases">Use Cases</a>
+            <a href="../en.html#tools">Tools</a>
+            <a href="en.html">Toolbox</a>
+            <a href="../en.html#contact">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-column-title">Contact</h4>
+          <div class="footer-links">
+            <a href="mailto:stanwesly@protonmail.com">stanwesly@protonmail.com</a>
+            <a href="tel:+420776479855">+420 776 479 855</a>
+            <span style="color: var(--rds-iron); font-size: var(--rds-text-sm);">Liberec, Czech Republic</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copyright">&copy; 2026 RIPlay. All rights reserved.</span>
+        <span class="footer-copyright">Liberec, Czech Republic</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================================================================
+       COOKIE CONSENT BANNER
+       ================================================================ -->
+  <div id="cookie-banner" class="cookie-banner" style="display: none;">
+    <div class="cookie-content">
+      <p>This site uses Google Analytics for basic traffic stats. No marketing cookies, just the basics.</p>
+      <div class="cookie-buttons">
+        <button onclick="acceptCookies()" class="rds-btn rds-btn-primary">Accept</button>
+        <button onclick="declineCookies()" class="rds-btn rds-btn-secondary">Decline</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

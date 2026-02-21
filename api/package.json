@@ -1,0 +1,32 @@
+{
+  "name": "riplay-toolbox-api",
+  "version": "1.0.0",
+  "description": "RIPlay Toolbox API - Server-side processing for PDF and image tools",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "pdf",
+    "image",
+    "compression",
+    "toolbox",
+    "api"
+  ],
+  "author": "RIPlay – Stan Wesly",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "multer": "^1.4.5-lts.1",
+    "pdf-lib": "^1.17.1",
+    "sharp": "^0.33.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

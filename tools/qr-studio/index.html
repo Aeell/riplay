@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>QR Code Studio — Custom QR Code Generator | RIPlay</title>
+  <meta name="description" content="Free online QR code generator with custom colors, logo upload, and multiple sizes. Export as PNG or SVG. 100% client-side processing.">
+  <meta name="keywords" content="QR code generator, custom QR code, QR with logo, QR code colors, free QR generator, SVG QR code">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="RIPlay">
+  <link rel="canonical" href="https://riplay.cz/tools/qr-studio/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="QR Code Studio — Custom QR Code Generator | RIPlay">
+  <meta property="og:description" content="Generate custom QR codes with colors, logo, and adjustable size. Export as PNG or SVG.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://riplay.cz/tools/qr-studio/">
+  <meta property="og:image" content="https://riplay.cz/logo.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QR Code Studio — Custom QR Code Generator | RIPlay">
+  <meta name="twitter:description" content="Generate custom QR codes with colors, logo, and adjustable size.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../rip-for-favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#e85d26">
+
+  <!-- Google Analytics 4 -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    
+    if (localStorage.getItem('cookie-consent') === 'accepted') {
+      loadGA4();
+    }
+    
+    function loadGA4() {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-K93YKBS0JP';
+      document.head.appendChild(script);
+      gtag('js', new Date());
+      gtag('config', 'G-K93YKBS0JP');
+    }
+    
+    function acceptCookies() {
+      localStorage.setItem('cookie-consent', 'accepted');
+      loadGA4();
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    function declineCookies() {
+      localStorage.setItem('cookie-consent', 'declined');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!localStorage.getItem('cookie-consent')) {
+        document.getElementById('cookie-banner').style.display = 'flex';
+      }
+    });
+  </script>
+
+  <!-- qrcode-generator CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="../../css/riplay-design-system.css">
+  
+  <style>
+    /* QR Studio specific styles */
+    body {
+      background: var(--rds-obsidian);
+      min-height: 100vh;
+    }
+
+    .qr-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(8, 9, 13, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--rds-glass-border);
+      padding: var(--rds-space-4) var(--rds-space-6);
+    }
+
+    .qr-header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--rds-space-4);
+    }
+
+    .qr-header-left{
+      display: flex;
+      align-items: center;
+      gap: var(--rds-space-4);
+    }
+
+    .qr-header-logo{
+      display: flex;
+      align-items: center;
+      gap: var(--rds-space-3);
+      text-decoration: none;
+    }
+
+    .qr-header-logo img{
+      height: 32px;
+      width: auto;
+    }
+
+    .qr-header-title{
+      font-family: var(--rds-font-mono);
+      font-size: var(--rds-text-lg);
+      font-weight: 700;
+      color: var(--rds-white);
+    }
+
+    .qr-main{
+      padding-top: 80px;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: var(--rds-space-6);
+      padding: 80px var(--rds-space-6) var(--rds-space-6);
+    }
+
+    @media (max-width: 900px) {
+      .qr-main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Settings panel */
+    .settings-panel{
+      background: var(--rds-glass-bg);
+      border: 1px solid var(--rds-glass-border);
+      border-radius: var(--rds-radius-xl);
+      padding: var(--rds-space-6);
+      height: fit-content;
+      position: sticky;
+      top: 80px;
+    }
+
+    .settings-title{
+      font-size: var(--rds-text-lg);
+      font-weight: 600;
+      color: var(--rds-white);
+      margin-bottom: var(--rds-space-4);
+      padding-bottom: var(--rds-space-3);
+      border-bottom: 1px solid var(--rds-steel);
+    }
+
+    .setting-group{
+      margin-bottom: var(--rds-space-5);
+    }
+
+    .setting-group label{
+      display: block;
+      font-size: var(--rds-text-sm);
+      color: var(--rds-silver);
+      margin-bottom: var(--rds-space-2);
+    }
+
+    .setting-group input[type="text"],
+    .setting-group input[type="number"],
+    .setting-group textarea{
+      width: 100%;
+      padding: var(--rds-space-3);
+      background: var(--rds-void);
+      border: 1px solid var(--rds-steel);
+      border-radius: var(--rds-radius-md);
+      color: var(--rds-chrome);
+      font-size: var(--rds-text-base);
+      font-family: var(--rds-font-body);
+    }
+
+    .setting-group input:focus,
+    .setting-group textarea:focus{
+      outline: none;
+      border-color: var(--rds-ember);
+    }
+
+    .setting-group textarea{
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .color-input-group{
+      display: flex;
+      gap: var(--rds-space-2);
+      align-items: center;
+    }
+
+    .color-input-group input[type="color"]{
+      width: 50px;
+      height: 40px;
+      padding: 0;
+      border: 1px solid var(--rds-steel);
+      border-radius: var(--rds-radius-md);
+      cursor: pointer;
+    }
+
+    .color-input-group input[type="text"]{
+      flex: 1;
+    }
+
+    .size-options{
+      display: flex;
+      gap: var(--rds-space-2);
+      flex-wrap: wrap;
+    }
+
+    .size-option{
+      padding: var(--rds-space-2) var(--rds-space-3);
+      background: var(--rds-void);
+      border: 1px solid var(--rds-steel);
+      border-radius: var(--rds-radius-md);
+      color: var(--rds-silver);
+      font-size: var(--rds-text-sm);
+      cursor: pointer;
+      transition: all var(--rds-transition-fast);
+      min-height: 44px;
+    }
+
+    .size-option:hover{
+      border-color: var(--rds-ember);
+      color: var(--rds-white);
+    }
+
+    .size-option.active{
+      background: rgba(232, 93, 38, 0.1);
+      border-color: var(--rds-ember);
+      color: var(--rds-ember);
+    }
+
+    .logo-upload{
+      border: 2px dashed var(--rds-steel);
+      border-radius: var(--rds-radius-lg);
+      padding: var(--rds-space-4);
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--rds-transition-fast);
+    }
+
+    .logo-upload:hover{
+      border-color: var(--rds-ember);
+      background: rgba(232, 93, 38, 0.05);
+    }
+
+    .logo-upload input{
+      display: none;
+    }
+
+    .logo-preview{
+      max-width: 80px;
+      max-height: 80px;
+      margin: 0 auto var(--rds-space-2);
+    }
+
+    .logo-upload-text{
+      font-size: var(--rds-text-sm);
+      color: var(--rds-iron);
+    }
+
+    /* Preview panel */
+    .preview-panel{
+      background: var(--rds-glass-bg);
+      border: 1px solid var(--rds-glass-border);
+      border-radius: var(--rds-radius-xl);
+      padding: var(--rds-space-6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+
+    .qr-preview-title{
+      font-size: var(--rds-text-sm);
+      color: var(--rds-silver);
+      margin-bottom: var(--rds-space-4);
+    }
+
+    #qrPreview{
+      background: white;
+      padding: var(--rds-space-4);
+      border-radius: var(--rds-radius-md);
+    }
+
+    #qrPreview img{
+      display: block;
+      max-width: 100%;
+    }
+
+    .download-buttons{
+      display: flex;
+      gap: var(--rds-space-3);
+      margin-top: var(--rds-space-6);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .download-buttons .rds-btn{
+      min-width: 120px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .qr-header-title{
+        display: none;
+      }
+
+      .qr-main{
+        padding-top: 60px;
+      }
+
+      .settings-panel{
+        position: relative;
+        top: 0;
+      }
+
+      .preview-panel{
+        min-height: 300px;
+      }
+    }
+
+    /* Cookie banner */
+    .cookie-banner{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background: rgba(8, 9, 13, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(232, 93, 38, 0.2);
+      padding: var(--rds-space-4) var(--rds-space-6);
+      display: none;
+    }
+
+    .cookie-content{
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--rds-space-6);
+    }
+
+    .cookie-content p{
+      color: var(--rds-silver);
+      font-size: var(--rds-text-sm);
+      margin: 0;
+    }
+
+    .cookie-buttons{
+      display: flex;
+      gap: var(--rds-space-3);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .cookie-content{
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="qr-header">
+    <div class="qr-header-content">
+      <div class="qr-header-left">
+        <a href="../index.html" class="qr-header-logo">
+          <img src="../../rip-icon-black.png" alt="RIPlay">
+          <span class="qr-header-title">QR Code Studio</span>
+        </a>
+      </div>
+      <a href="../index.html" class="rds-btn rds-btn-ghost rds-btn-sm">← Back to Toolbox</a>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="qr-main">
+    <!-- Settings panel -->
+    <aside class="settings-panel">
+      <h2 class="settings-title">Settings</h2>
+
+      <!-- Content input -->
+      <div class="setting-group">
+        <label for="qrContent">Content (URL or Text)</label>
+        <textarea id="qrContent" placeholder="Enter URL or text to encode..." oninput="generateQR()">https://riplay.cz</textarea>
+      </div>
+
+      <!-- Size selector -->
+      <div class="setting-group">
+        <label>Size</label>
+        <div class="size-options">
+          <button class="size-option" data-size="128" onclick="setSize(128)">128px</button>
+          <button class="size-option" data-size="256" onclick="setSize(256)">256px</button>
+          <button class="size-option active" data-size="512" onclick="setSize(512)">512px</button>
+          <button class="size-option" data-size="768" onclick="setSize(768)">768px</button>
+          <button class="size-option" data-size="1024" onclick="setSize(1024)">1024px</button>
+        </div>
+      </div>
+
+      <!-- Foreground color -->
+      <div class="setting-group">
+        <label>Foreground Color</label>
+        <div class="color-input-group">
+          <input type="color" id="fgColor" value="#000000" onchange="generateQR()">
+          <input type="text" id="fgColorText" value="#000000" oninput="syncColor('fg')" placeholder="#000000">
+        </div>
+      </div>
+
+      <!-- Background color -->
+      <div class="setting-group">
+        <label>Background Color</label>
+        <div class="color-input-group">
+          <input type="color" id="bgColor" value="#ffffff" onchange="generateQR()">
+          <input type="text" id="bgColorText" value="#ffffff" oninput="syncColor('bg')" placeholder="#ffffff">
+        </div>
+      </div>
+
+      <!-- Logo upload -->
+      <div class="setting-group">
+        <label>Center Logo (optional)</label>
+        <div class="logo-upload" onclick="document.getElementById('logoInput').click()">
+          <input type="file" id="logoInput" accept="image/*" onchange="handleLogoUpload(event)">
+          <img id="logoPreview" class="logo-preview" style="display: none;">
+          <div id="logoUploadText" class="logo-upload-text">Click to upload logo</div>
+        </div>
+        <button id="removeLogoBtn" class="rds-btn rds-btn-ghost rds-btn-sm" style="width: 100%; margin-top: var(--rds-space-2); display: none;" onclick="removeLogo()">
+          Remove Logo
+        </button>
+      </div>
+    </aside>
+
+    <!-- Preview panel -->
+    <section class="preview-panel">
+      <div class="qr-preview-title">Live Preview</div>
+      <div id="qrPreview">
+        <!-- QR code will be rendered here -->
+      </div>
+      <div class="download-buttons">
+        <button class="rds-btn rds-btn-primary" onclick="downloadPNG()">
+          Download PNG
+        </button>
+        <button class="rds-btn rds-btn-secondary" onclick="downloadSVG()">
+          Download SVG
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cookie Banner -->
+  <div id="cookie-banner" class="cookie-banner" style="display: none;">
+    <div class="cookie-content">
+      <p>This site uses Google Analytics for basic traffic stats. No marketing cookies.</p>
+      <div class="cookie-buttons">
+        <button onclick="acceptCookies()" class="rds-btn rds-btn-primary rds-btn-sm">Accept</button>
+        <button onclick="declineCookies()" class="rds-btn rds-btn-secondary rds-btn-sm">Decline</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

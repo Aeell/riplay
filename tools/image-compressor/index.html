@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Image Compressor — Optimize & Convert Images | RIPlay</title>
+  <meta name="description" content="Free online image compressor: optimize JPG, PNG, WebP, AVIF images. Batch processing, before/after preview, format conversion. Client-side + server-side options.">
+  <meta name="keywords" content="image compressor, image optimizer, compress JPG, compress PNG, WebP converter, AVIF, batch image processing, reduce image size">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="RIPlay">
+  <link rel="canonical" href="https://riplay.cz/tools/image-compressor/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Image Compressor — Free Online Image Optimization | RIPlay">
+  <meta property="og:description" content="Optimize and convert images with before/after preview. Batch processing up to 20 images.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://riplay.cz/tools/image-compressor/">
+  <meta property="og:image" content="https://riplay.cz/logo.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Image Compressor — Free Online Image Optimization | RIPlay">
+  <meta name="twitter:description" content="Optimize and convert images with before/after preview.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../rip-for-favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#e85d26">
+
+  <!-- Google Analytics 4 -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    
+    if (localStorage.getItem('cookie-consent') === 'accepted') {
+      loadGA4();
+    }
+    
+    function loadGA4() {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-K93YKBS0JP';
+      document.head.appendChild(script);
+      gtag('js', new Date());
+      gtag('config', 'G-K93YKBS0JP');
+    }
+    
+    function acceptCookies() {
+      localStorage.setItem('cookie-consent', 'accepted');
+      loadGA4();
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    function declineCookies() {
+      localStorage.setItem('cookie-consent', 'declined');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!localStorage.getItem('cookie-consent')) {
+        document.getElementById('cookie-banner').style.display = 'flex';
+      }
+    });
+  </script>
+
+  <!-- JSZip CDN for batch download -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="../../css/riplay-design-system.css">
+  
+  <style>
+    /* Image Compressor specific styles */
+    body {
+      background: var(--rds-obsidian);
+      min-height: 100vh;
+    }
+
+    .img-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(8, 9, 13, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--rds-glass-border);
+      padding: var(--rds-space-4) var(--rds-space-6);
+    }
+
+    .img-header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--rds-space-4);
+    }
+
+    .img-header-left {
+      display: flex;
+      align-items: center;
+      gap: var(--rds-space-4);
+    }
+
+    .img-header-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--rds-space-3);
+      text-decoration: none;
+    }
+
+    .img-header-logo img {
+      height: 32px;
+      width: auto;
+    }
+
+    .img-header-title {
+      font-family: var(--rds-font-mono);
+      font-size: var(--rds-text-lg);
+      font-weight: 700;
+      color: var(--rds-white);
+    }
+
+    .img-main {
+      padding-top: 80px;
+      min-height: 100vh;
+    }
+
+    /* Drop zone */
+    .drop-zone {
+      margin: var(--rds-space-6);
+      padding: var(--rds-space-12);
+      border: 2px dashed var(--rds-steel);
+      border-radius: var(--rds-radius-xl);
+      text-align: center;
+      transition: all var(--rds-transition-base);
+      background: var(--rds-glass-bg);
+      cursor: pointer;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.drag-over {
+      border-color: var(--rds-ember);
+      background: rgba(232, 93, 38, 0.05);
+    }
+
+    .drop-zone-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--rds-space-4);
+      color: var(--rds-ember);
+    }
+
+    .drop-zone-title {
+      font-size: var(--rds-text-xl);
+      font-weight: 600;
+      color: var(--rds-white);
+      margin-bottom: var(--rds-space-2);
+    }
+
+    .drop-zone-subtitle {
+      color: var(--rds-silver);
+      font-size: var(--rds-text-sm);
+      margin-bottom: var(--rds-space-4);
+    }
+
+    .drop-zone input[type="file"] {
+      display: none;
+    }
+
+    /* Settings panel */
+    .settings-panel {
+      margin: 0 var(--rds-space-6) var(--rds-space-6);
+      padding: var(--rds-space-6);
+      background: var(--rds-glass-bg);
+      border: 1px solid var(--rds-glass-border);
+      border-radius: var(--rds-radius-xl);
+      display: none;
+    }
+
+    .settings-panel.visible {
+      display: block;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--rds-space-6);
+    }
+
+    .setting-group label {
+      display: block;
+      font-size: var(--rds-text-sm);
+      color: var(--rds-silver);
+      margin-bottom: var(--rds-space-2);
+    }
+
+    .setting-group input[type="range"] {
+      width: 100%;
+      height: 8px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--rds-graphite);
+      border-radius: var(--rds-radius-full);
+      outline: none;
+    }
+
+    .setting-group input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--rds-ember);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .setting-group select {
+      width: 100%;
+      padding: var(--rds-space-3);
+      background: var(--rds-void);
+      border: 1px solid var(--rds-steel);
+      border-radius: var(--rds-radius-md);
+      color: var(--rds-chrome);
+      font-size: var(--rds-text-base);
+    }
+
+    .quality-display {
+      text-align: center;
+      font-family: var(--rds-font-mono);
+      font-size: var(--rds-text-lg);
+      color: var(--rds-ember);
+      margin-top: var(--rds-space-2);
+    }
+
+    /* Image grid */
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--rds-space-6);
+      padding: 0 var(--rds-space-6) var(--rds-space-6);
+    }
+
+    @media (max-width: 640px) {
+      .images-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Image card */
+    .image-card {
+      background: var(--rds-glass-bg);
+      border: 1px solid var(--rds-glass-border);
+      border-radius: var(--rds-radius-xl);
+      overflow: hidden;
+    }
+
+    .image-preview-container {
+      position: relative;
+      height: 200px;
+      background: var(--rds-gunmetal);
+      overflow: hidden;
+    }
+
+    .image-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .image-comparison {
+      position: absolute;
+      inset: 0;
+      display: flex;
+    }
+
+    .image-comparison-before,
+    .image-comparison-after {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .image-comparison-before img,
+    .image-comparison-after img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .image-comparison-slider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--rds-ember);
+      cursor: ew-resize;
+      z-index: 10;
+    }
+
+    .image-comparison-slider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      background: var(--rds-ember);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-info {
+      padding: var(--rds-space-4);
+    }
+
+    .image-filename {
+      font-size: var(--rds-text-sm);
+      color: var(--rds-white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: var(--rds-space-2);
+    }
+
+    .image-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--rds-text-xs);
+      color: var(--rds-iron);
+      margin-bottom: var(--rds-space-3);
+    }
+
+    .image-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .image-stat-value {
+      font-family: var(--rds-font-mono);
+      font-size: var(--rds-text-base);
+      color: var(--rds-chrome);
+    }
+
+    .image-stat-label {
+      color: var(--rds-iron);
+    }
+
+    .image-reduction {
+      color: var(--rds-green);
+    }
+
+    .image-actions {
+      display: flex;
+      gap: var(--rds-space-2);
+    }
+
+    .image-actions .rds-btn {
+      flex: 1;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      padding: var(--rds-space-4) var(--rds-space-6);
+      background: var(--rds-void);
+      display: none;
+    }
+
+    .progress-container.visible {
+      display: block;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--rds-graphite);
+      border-radius: var(--rds-radius-full);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--rds-gradient-fire);
+      border-radius: var(--rds-radius-full);
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      text-align: center;
+      margin-top: var(--rds-space-2);
+      font-size: var(--rds-text-sm);
+      color: var(--rds-silver);
+    }
+
+    /* Batch actions */
+    .batch-actions {
+      position: fixed;
+      bottom: var(--rds-space-6);
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+      gap: var(--rds-space-3);
+      padding: var(--rds-space-4);
+      background: var(--rds-gunmetal);
+      border: 1px solid var(--rds-glass-border);
+      border-radius: var(--rds-radius-xl);
+      box-shadow: var(--rds-shadow-xl);
+      z-index: 100;
+    }
+
+    .batch-actions.visible {
+      display: flex;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: var(--rds-space-12);
+      color: var(--rds-iron);
+    }
+
+    .empty-state svg {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--rds-space-4);
+      opacity: 0.3;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .img-header-title {
+        display: none;
+      }
+
+      .drop-zone {
+        margin: var(--rds-space-4);
+        padding: var(--rds-space-8);
+      }
+
+      .settings-panel {
+        margin: 0 var(--rds-space-4) var(--rds-space-4);
+      }
+
+      .images-grid {
+        padding: 0 var(--rds-space-4) var(--rds-space-4);
+      }
+
+      .batch-actions {
+        left: var(--rds-space-4);
+        right: var(--rds-space-4);
+        transform: none;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    /* Cookie banner */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background: rgba(8, 9, 13, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(232, 93, 38, 0.2);
+      padding: var(--rds-space-4) var(--rds-space-6);
+      display: none;
+    }
+
+    .cookie-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--rds-space-6);
+    }
+
+    .cookie-content p {
+      color: var(--rds-silver);
+      font-size: var(--rds-text-sm);
+      margin: 0;
+    }
+
+    .cookie-buttons {
+      display: flex;
+      gap: var(--rds-space-3);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .cookie-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="img-header">
+    <div class="img-header-content">
+      <div class="img-header-left">
+        <a href="../index.html" class="img-header-logo">
+          <img src="../../rip-icon-black.png" alt="RIPlay">
+          <span class="img-header-title">Image Compressor</span>
+        </a>
+      </div>
+      <a href="../index.html" class="rds-btn rds-btn-ghost rds-btn-sm">← Back to Toolbox</a>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="img-main">
+    <!-- Drop zone -->
+    <div class="drop-zone" id="dropZone">
+      <svg class="drop-zone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      <div class="drop-zone-title">Drop images here</div>
+      <div class="drop-zone-subtitle">JPG, PNG, WebP, AVIF • Up to 20 images at once</div>
+      <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/avif" multiple>
+      <button class="rds-btn rds-btn-secondary" onclick="document.getElementById('fileInput').click()">
+        Choose Images
+      </button>
+    </div>
+
+    <!-- Settings panel -->
+    <div class="settings-panel" id="settingsPanel">
+      <div class="settings-grid">
+        <div class="setting-group">
+          <label>Quality</label>
+          <input type="range" id="qualitySlider" min="10" max="100" value="80" oninput="updateQuality(this.value)">
+          <div class="quality-display" id="qualityDisplay">80%</div>
+        </div>
+        <div class="setting-group">
+          <label>Output Format</label>
+          <select id="formatSelect">
+            <option value="original">Keep Original</option>
+            <option value="jpeg">JPEG</option>
+            <option value="png">PNG</option>
+            <option value="webp">WebP</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Max Width (px)</label>
+          <select id="maxWidthSelect">
+            <option value="0">No Limit</option>
+            <option value="1920">1920 (Full HD)</option>
+            <option value="1280">1280 (HD)</option>
+            <option value="800">800</option>
+            <option value="400">400</option>
+          </select>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: var(--rds-space-6);">
+        <button class="rds-btn rds-btn-primary" onclick="compressAll()">Compress All Images</button>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <div class="progress-text" id="progressText">Processing...</div>
+    </div>
+
+    <!-- Images grid -->
+    <div class="images-grid" id="imagesGrid">
+      <div class="empty-state" id="emptyState">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <p>No images loaded</p>
+        <p style="font-size: var(--rds-text-sm);">Drop files above or click to browse</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Batch actions -->
+  <div class="batch-actions" id="batchActions">
+    <button class="rds-btn rds-btn-primary" onclick="downloadAll()">
+      Download All (ZIP)
+    </button>
+    <button class="rds-btn rds-btn-secondary" onclick="clearAll()">
+      Clear All
+    </button>
+  </div>
+
+  <!-- Cookie Banner -->
+  <div id="cookie-banner" class="cookie-banner" style="display: none;">
+    <div class="cookie-content">
+      <p>This site uses Google Analytics for basic traffic stats. No marketing cookies.</p>
+      <div class="cookie-buttons">
+        <button onclick="acceptCookies()" class="rds-btn rds-btn-primary rds-btn-sm">Accept</button>
+        <button onclick="declineCookies()" class="rds-btn rds-btn-secondary rds-btn-sm">Decline</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
