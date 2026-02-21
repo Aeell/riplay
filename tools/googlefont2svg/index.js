@@ -3,8 +3,9 @@
 
 var makerjs = require('makerjs');
 
-// Google Fonts API Key
-var apiKey = 'AIzaSyAOES8EmKhuJEnsn9kS1XKBpxxp-TgN8Jc';
+// Google Fonts API Key - loaded from config (not committed to repo)
+// Create a config.js file with: window.GOOGLE_FONTS_API_KEY = 'your-key-here';
+var apiKey = window.GOOGLE_FONTS_API_KEY || '';
 
 // State
 var state = {

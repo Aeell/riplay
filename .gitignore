@@ -29,3 +29,6 @@ build/
 *.tmp
 *.temp
 .cache/
+
+# API keys and secrets (local config files)
+tools/googlefont2svg/config.js
