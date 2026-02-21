@@ -111,7 +111,12 @@
 
     } catch (error) {
       console.error('Error generating QR code:', error);
-      qrPreview.innerHTML = `<p style="color: var(--rds-red); padding: 2rem;">Error: ${error.message}</p>`;
+      // Use textContent to prevent XSS (no HTML interpretation)
+      const errorP = document.createElement('p');
+      errorP.style.cssText = 'color: var(--rds-red); padding: 2rem;';
+      errorP.textContent = 'Error: ' + (error.message || 'Unknown error');
+      qrPreview.innerHTML = '';
+      qrPreview.appendChild(errorP);
     }
   };
 

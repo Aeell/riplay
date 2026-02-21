@@ -132,10 +132,15 @@ const fileSelectHandler = (event: Event) => {
   files.sort((a, b) => a.name === b.name ? 0 : (a.name < b.name ? -1 : 1));
   selectedFiles = files;
 
-  ui.fileSelectArea.innerHTML = `<h2>
-    ${files[0].name}
-    ${files.length > 1 ? `<br>... and ${files.length - 1} more` : ""}
-  </h2>`;
+  // Use textContent to prevent XSS from file names
+  const h2 = document.createElement('h2');
+  h2.textContent = files[0].name;
+  if (files.length > 1) {
+    h2.appendChild(document.createElement('br'));
+    h2.appendChild(document.createTextNode(`... and ${files.length - 1} more`));
+  }
+  ui.fileSelectArea.innerHTML = '';
+  ui.fileSelectArea.appendChild(h2);
 
   // Common MIME type adjustments (to match "mime" library)
   let mimeType = normalizeMimeType(files[0].type);
