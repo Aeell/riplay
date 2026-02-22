@@ -354,6 +354,10 @@
       color: var(--rds-green);
     }
 
+    .image-increase {
+      color: var(--rds-ember);
+    }
+
     .image-actions {
       display: flex;
       gap: var(--rds-space-2);
@@ -519,31 +523,31 @@
   <!-- Main content -->
   <main class="img-main">
     <!-- Drop zone -->
-    <div class="drop-zone" id="dropZone">
-      <svg class="drop-zone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Drop images here or click to browse">
+      <svg class="drop-zone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
         <circle cx="8.5" cy="8.5" r="1.5"/>
         <polyline points="21 15 16 10 5 21"/>
       </svg>
       <div class="drop-zone-title">Drop images here</div>
       <div class="drop-zone-subtitle">JPG, PNG, WebP, AVIF • Up to 20 images at once</div>
-      <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/avif" multiple>
-      <button class="rds-btn rds-btn-secondary" onclick="document.getElementById('fileInput').click()">
+      <label for="fileInput" class="rds-btn rds-btn-secondary">
         Choose Images
-      </button>
+      </label>
+      <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/avif" multiple aria-label="Select image files">
     </div>
 
     <!-- Settings panel -->
     <div class="settings-panel" id="settingsPanel">
       <div class="settings-grid">
         <div class="setting-group">
-          <label>Quality</label>
-          <input type="range" id="qualitySlider" min="10" max="100" value="80" oninput="updateQuality(this.value)">
+          <label for="qualitySlider">Quality</label>
+          <input type="range" id="qualitySlider" min="10" max="100" value="80" oninput="updateQuality(this.value)" aria-label="Compression quality percentage">
           <div class="quality-display" id="qualityDisplay">80%</div>
         </div>
         <div class="setting-group">
-          <label>Output Format</label>
-          <select id="formatSelect">
+          <label for="formatSelect">Output Format</label>
+          <select id="formatSelect" aria-label="Select output format">
             <option value="original">Keep Original</option>
             <option value="jpeg">JPEG</option>
             <option value="png">PNG</option>
@@ -551,8 +555,8 @@
           </select>
         </div>
         <div class="setting-group">
-          <label>Max Width (px)</label>
-          <select id="maxWidthSelect">
+          <label for="maxWidthSelect">Max Width (px)</label>
+          <select id="maxWidthSelect" aria-label="Maximum width in pixels">
             <option value="0">No Limit</option>
             <option value="1920">1920 (Full HD)</option>
             <option value="1280">1280 (HD)</option>

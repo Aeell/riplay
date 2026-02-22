@@ -595,8 +595,8 @@
   <!-- Main content -->
   <main class="pdf-main">
     <!-- Drop zone -->
-    <div class="drop-zone" id="dropZone">
-      <svg class="drop-zone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Drop PDF files here or click to browse">
+      <svg class="drop-zone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
         <polyline points="14 2 14 8 20 8"/>
         <line x1="12" y1="18" x2="12" y2="12"/>
@@ -604,10 +604,10 @@
       </svg>
       <div class="drop-zone-title">Drop PDF files here</div>
       <div class="drop-zone-subtitle">or click to browse • Multiple files supported</div>
-      <input type="file" id="fileInput" accept=".pdf" multiple>
-      <button class="rds-btn rds-btn-secondary" onclick="document.getElementById('fileInput').click()">
+      <label for="fileInput" class="rds-btn rds-btn-secondary">
         Choose Files
-      </button>
+      </label>
+      <input type="file" id="fileInput" accept=".pdf" multiple aria-label="Select PDF files">
     </div>
 
     <!-- Toolbar -->
@@ -648,11 +648,11 @@
     <!-- Compress options -->
     <div class="compress-options" id="compressOptions">
       <div class="compress-slider-container">
-        <div class="compress-label">
+        <label for="qualitySlider" class="compress-label">
           <span>Quality</span>
           <span id="qualityValue">70%</span>
-        </div>
-        <input type="range" class="compress-slider" id="qualitySlider" min="10" max="100" value="70" oninput="updateQuality(this.value)">
+        </label>
+        <input type="range" class="compress-slider" id="qualitySlider" min="10" max="100" value="70" oninput="updateQuality(this.value)" aria-label="Compression quality percentage">
         <p style="text-align: center; margin-top: var(--rds-space-4); font-size: var(--rds-text-sm); color: var(--rds-iron);">
           Lower quality = smaller file size
         </p>
@@ -689,9 +689,9 @@
   <div class="modal-overlay" id="splitModal">
     <div class="modal-content">
       <h3 class="modal-title">Split PDF</h3>
-      <label class="rds-label">Page Range</label>
-      <input type="text" class="modal-input" id="splitRange" placeholder="e.g., 1-3, 5, 7-10">
-      <p class="modal-hint">Enter page numbers or ranges separated by commas</p>
+      <label for="splitRange" class="rds-label">Page Range</label>
+      <input type="text" class="modal-input" id="splitRange" placeholder="e.g., 1-3, 5, 7-10" aria-describedby="splitHint">
+      <p class="modal-hint" id="splitHint">Enter page numbers or ranges separated by commas</p>
       <div class="modal-actions">
         <button class="rds-btn rds-btn-ghost" onclick="closeSplitModal()">Cancel</button>
         <button class="rds-btn rds-btn-primary" onclick="splitPDF()">Extract Pages</button>

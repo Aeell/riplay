@@ -124,9 +124,11 @@
   window.setSize = function(size) {
     state.size = size;
 
-    // Update active button
+    // Update active button and aria-checked
     document.querySelectorAll('.size-option').forEach(btn => {
-      btn.classList.toggle('active', parseInt(btn.dataset.size) === size);
+      const isActive = parseInt(btn.dataset.size) === size;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-checked', isActive ? 'true' : 'false');
     });
 
     generateQR();

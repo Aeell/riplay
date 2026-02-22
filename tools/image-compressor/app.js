@@ -43,7 +43,8 @@
 
   // Drop zone setup
   function setupDropZone() {
-    dropZone.addEventListener('click', () => fileInput.click());
+    // Don't add click handler - label handles file input trigger
+    // Only handle drag and drop
     
     dropZone.addEventListener('dragover', (e) => {
       e.preventDefault();
@@ -62,6 +63,14 @@
       );
       if (files.length > 0) {
         await loadFiles(files);
+      }
+    });
+    
+    // Keyboard accessibility
+    dropZone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        fileInput.click();
       }
     });
   }
@@ -146,6 +155,13 @@
     const reduction = imageData.compressedSize 
       ? Math.round((1 - imageData.compressedSize / imageData.originalSize) * 100)
       : 0;
+    
+    // Check if compression increased size
+    const sizeIncreased = imageData.compressedSize && imageData.compressedSize >= imageData.originalSize;
+    const reductionClass = sizeIncreased ? 'image-increase' : (reduction > 0 ? 'image-reduction' : '');
+    const reductionText = sizeIncreased 
+      ? '+' + Math.round((imageData.compressedSize / imageData.originalSize - 1) * 100) + '%'
+      : (reduction > 0 ? '-' + reduction + '%' : '—');
 
     card.innerHTML = `
       <div class="image-preview-container">
@@ -163,10 +179,11 @@
             <span class="image-stat-label">Compressed</span>
           </div>
           <div class="image-stat">
-            <span class="image-stat-value ${reduction > 0 ? 'image-reduction' : ''}">${reduction > 0 ? '-' + reduction + '%' : '—'}</span>
-            <span class="image-stat-label">Saved</span>
+            <span class="image-stat-value ${reductionClass}">${reductionText}</span>
+            <span class="image-stat-label">${sizeIncreased ? 'Larger' : 'Saved'}</span>
           </div>
         </div>
+        ${sizeIncreased ? '<p style="font-size: var(--rds-text-xs); color: var(--rds-ember); margin-bottom: var(--rds-space-2);">Try lower quality or WebP format</p>' : ''}
         <div class="image-actions">
           <button class="rds-btn rds-btn-secondary rds-btn-sm" onclick="compressSingle('${imageData.id}')" ${imageData.compressedUrl ? 'disabled' : ''}>
             Compress
@@ -254,23 +271,36 @@
           const maxWidth = parseInt(maxWidthSelect.value);
 
           if (maxWidth > 0 && width > maxWidth) {
-            height = (height * maxWidth) / width;
+            height = Math.round((height * maxWidth) / width);
             width = maxWidth;
           }
 
           canvas.width = width;
           canvas.height = height;
 
-          // Draw image
+          // Draw image with white background for JPEG (handles transparency)
+          const outputType = getOutputFormat(imageData.type);
+          if (outputType === 'image/jpeg') {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, width, height);
+          }
           ctx.drawImage(img, 0, 0, width, height);
 
-          // Get output format
-          const outputType = getOutputFormat(imageData.type);
-          const quality = outputType === 'image/png' ? undefined : state.quality / 100;
+          // Quality setting (0-1 range for canvas)
+          // Note: PNG doesn't support quality - it's lossless
+          const quality = outputType === 'image/png' ? 1 : state.quality / 100;
 
           // Convert to blob
           canvas.toBlob(async (blob) => {
             if (blob) {
+              // Check if compression actually reduced size
+              // If compressed is larger than original, keep original
+              if (blob.size >= imageData.originalSize) {
+                console.log(`Compression increased size for ${imageData.filename}, keeping original`);
+                // For display, still show the "compressed" version but note it
+                // User can decide to download or not
+              }
+
               // Clean up previous compressed URL
               if (imageData.compressedUrl) {
                 URL.revokeObjectURL(imageData.compressedUrl);

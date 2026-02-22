@@ -41,7 +41,8 @@
 
   // Drop zone setup
   function setupDropZone() {
-    dropZone.addEventListener('click', () => fileInput.click());
+    // Don't add click handler - label handles file input trigger
+    // Only handle drag and drop
     
     dropZone.addEventListener('dragover', (e) => {
       e.preventDefault();
@@ -58,6 +59,14 @@
       const files = Array.from(e.dataTransfer.files).filter(f => f.type === 'application/pdf');
       if (files.length > 0) {
         await loadFiles(files);
+      }
+    });
+    
+    // Keyboard accessibility
+    dropZone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        fileInput.click();
       }
     });
   }
@@ -185,9 +194,12 @@
 
   // Create thumbnail card
   function createThumbnailCard(fileData, pageIndex, globalIndex) {
+    const page = fileData.pages[pageIndex];
+    const fileIndex = state.files.indexOf(fileData);
+    
     const card = document.createElement('div');
     card.className = 'thumbnail-card';
-    card.dataset.fileIndex = state.files.indexOf(fileData);
+    card.dataset.fileIndex = fileIndex;
     card.dataset.pageIndex = pageIndex;
     card.dataset.globalIndex = globalIndex;
     card.draggable = true;
@@ -199,23 +211,23 @@
       </div>
       <div class="thumbnail-filename">${fileData.filename}</div>
       <div class="thumbnail-actions">
-        <button class="thumbnail-btn" onclick="rotatePage(${state.files.indexOf(fileData)}, ${pageIndex})" title="Rotate 90°">
+        <button class="thumbnail-btn" onclick="rotatePage(${fileIndex}, ${pageIndex})" title="Rotate 90°">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="23 4 23 10 17 10"/>
             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
           </svg>
         </button>
-        <button class="thumbnail-btn" onclick="movePage(${state.files.indexOf(fileData)}, ${pageIndex}, -1)" title="Move Up">
+        <button class="thumbnail-btn" onclick="movePage(${fileIndex}, ${pageIndex}, -1)" title="Move Up">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="18 15 12 9 6 15"/>
           </svg>
         </button>
-        <button class="thumbnail-btn" onclick="movePage(${state.files.indexOf(fileData)}, ${pageIndex}, 1)" title="Move Down">
+        <button class="thumbnail-btn" onclick="movePage(${fileIndex}, ${pageIndex}, 1)" title="Move Down">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="6 9 12 15 18 9"/>
           </svg>
         </button>
-        <button class="thumbnail-btn" onclick="deletePage(${state.files.indexOf(fileData)}, ${pageIndex})" title="Delete">
+        <button class="thumbnail-btn" onclick="deletePage(${fileIndex}, ${pageIndex})" title="Delete">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="6" x2="6" y2="18"/>
             <line x1="6" y1="6" x2="18" y2="18"/>

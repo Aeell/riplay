@@ -404,42 +404,42 @@
 
       <!-- Size selector -->
       <div class="setting-group">
-        <label>Size</label>
-        <div class="size-options">
-          <button class="size-option" data-size="128" onclick="setSize(128)">128px</button>
-          <button class="size-option" data-size="256" onclick="setSize(256)">256px</button>
-          <button class="size-option active" data-size="512" onclick="setSize(512)">512px</button>
-          <button class="size-option" data-size="768" onclick="setSize(768)">768px</button>
-          <button class="size-option" data-size="1024" onclick="setSize(1024)">1024px</button>
+        <span id="sizeLabel" class="rds-label">Size</span>
+        <div class="size-options" role="radiogroup" aria-labelledby="sizeLabel">
+          <button class="size-option" data-size="128" onclick="setSize(128)" role="radio" aria-checked="false">128px</button>
+          <button class="size-option" data-size="256" onclick="setSize(256)" role="radio" aria-checked="false">256px</button>
+          <button class="size-option active" data-size="512" onclick="setSize(512)" role="radio" aria-checked="true">512px</button>
+          <button class="size-option" data-size="768" onclick="setSize(768)" role="radio" aria-checked="false">768px</button>
+          <button class="size-option" data-size="1024" onclick="setSize(1024)" role="radio" aria-checked="false">1024px</button>
         </div>
       </div>
 
       <!-- Foreground color -->
       <div class="setting-group">
-        <label>Foreground Color</label>
+        <label for="fgColor">Foreground Color</label>
         <div class="color-input-group">
-          <input type="color" id="fgColor" value="#000000" onchange="generateQR()">
-          <input type="text" id="fgColorText" value="#000000" oninput="syncColor('fg')" placeholder="#000000">
+          <input type="color" id="fgColor" value="#000000" onchange="generateQR()" aria-label="Select foreground color">
+          <input type="text" id="fgColorText" value="#000000" oninput="syncColor('fg')" placeholder="#000000" aria-label="Foreground color hex value">
         </div>
       </div>
 
       <!-- Background color -->
       <div class="setting-group">
-        <label>Background Color</label>
+        <label for="bgColor">Background Color</label>
         <div class="color-input-group">
-          <input type="color" id="bgColor" value="#ffffff" onchange="generateQR()">
-          <input type="text" id="bgColorText" value="#ffffff" oninput="syncColor('bg')" placeholder="#ffffff">
+          <input type="color" id="bgColor" value="#ffffff" onchange="generateQR()" aria-label="Select background color">
+          <input type="text" id="bgColorText" value="#ffffff" oninput="syncColor('bg')" placeholder="#ffffff" aria-label="Background color hex value">
         </div>
       </div>
 
       <!-- Logo upload -->
       <div class="setting-group">
-        <label>Center Logo (optional)</label>
-        <div class="logo-upload" onclick="document.getElementById('logoInput').click()">
-          <input type="file" id="logoInput" accept="image/*" onchange="handleLogoUpload(event)">
-          <img id="logoPreview" class="logo-preview" style="display: none;">
+        <span class="rds-label">Center Logo (optional)</span>
+        <label for="logoInput" class="logo-upload">
+          <input type="file" id="logoInput" accept="image/*" onchange="handleLogoUpload(event)" aria-label="Upload logo image">
+          <img id="logoPreview" class="logo-preview" style="display: none;" alt="Logo preview">
           <div id="logoUploadText" class="logo-upload-text">Click to upload logo</div>
-        </div>
+        </label>
         <button id="removeLogoBtn" class="rds-btn rds-btn-ghost rds-btn-sm" style="width: 100%; margin-top: var(--rds-space-2); display: none;" onclick="removeLogo()">
           Remove Logo
         </button>
