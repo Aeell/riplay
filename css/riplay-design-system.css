@@ -675,8 +675,8 @@ hr {
 
 /* Logo image — constrained height */
 .rds-nav-logo {
-  height: 36px;
-  max-height: 36px;
+  height: 48px;
+  max-height: 48px;
   width: auto;
   display: block;
 }
