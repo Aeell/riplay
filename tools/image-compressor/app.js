@@ -96,6 +96,30 @@
       return;
     }
 
+    // Check for PNG files and show warning
+    const hasPngFiles = filesToLoad.some(f => f.type === 'image/png');
+    if (hasPngFiles) {
+      const pngWarning = confirm(
+        '⚠️ PNG Compression Notice\n\n' +
+        'PNG files use lossless compression. The quality slider has NO effect on PNG output.\n\n' +
+        'For PNG files:\n' +
+        '• File size may INCREASE after "compression"\n' +
+        '• Consider converting to WebP or JPEG for better compression\n' +
+        '• Use "Max Width" to reduce dimensions instead\n\n' +
+        'Click OK to continue, or Cancel to remove PNG files.'
+      );
+      
+      if (!pngWarning) {
+        // Filter out PNG files
+        const nonPngFiles = filesToLoad.filter(f => f.type !== 'image/png');
+        if (nonPngFiles.length === 0) {
+          return;
+        }
+        filesToLoad.length = 0;
+        filesToLoad.push(...nonPngFiles);
+      }
+    }
+
     showProgress('Loading images...', 0);
 
     for (let i = 0; i < filesToLoad.length; i++) {
