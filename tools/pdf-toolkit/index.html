@@ -62,8 +62,15 @@
     });
   </script>
 
-  <!-- pdf-lib CDN -->
+  <!-- pdf-lib CDN for PDF manipulation -->
   <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  
+  <!-- PDF.js CDN for PDF rendering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    // Set PDF.js worker source
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  </script>
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="../../css/riplay-design-system.css?v=20260222">
@@ -710,6 +717,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=20260222"></script>
+  <script src="app.js?v=20260222b"></script>
 </body>
 </html>

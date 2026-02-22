@@ -1,9 +1,10 @@
 /**
  * PDF Toolkit - Client-side PDF manipulation
  * Uses pdf-lib for merge, split, rotate operations
+ * Uses PDF.js for page rendering/thumbnails
  * Server-side compression for files >20MB
  * 
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 (function() {
@@ -11,7 +12,7 @@
 
   // State
   const state = {
-    files: [],           // { id, file, pdfDoc, pages: [], filename }
+    files: [],           // { id, file, pdfDoc, pdfJsDoc, pages: [], filename }
     selectedId: null,
     quality: 70,
     isProcessing: false
@@ -99,13 +100,20 @@
       const file = files[i];
       try {
         const arrayBuffer = await file.arrayBuffer();
+        
+        // Load with pdf-lib for manipulation
         const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
         const pages = pdfDoc.getPages();
+        
+        // Load with PDF.js for rendering
+        const pdfJsDoc = await pdfjsLib.getDocument({ data: arrayBuffer.slice(0) }).promise;
         
         const fileData = {
           id: generateId(),
           file: file,
           pdfDoc: pdfDoc,
+          pdfJsDoc: pdfJsDoc,
+          arrayBuffer: arrayBuffer,
           pages: [],
           filename: file.name,
           pageCount: pages.length
@@ -113,7 +121,7 @@
 
         // Generate thumbnails for each page
         for (let j = 0; j < pages.length; j++) {
-          const thumbnail = await generateThumbnail(pdfDoc, j);
+          const thumbnail = await generateThumbnail(pdfJsDoc, j);
           fileData.pages.push({
             index: j,
             thumbnail: thumbnail,
@@ -134,34 +142,29 @@
     updateToolbar();
   }
 
-  // Generate thumbnail for a page
-  async function generateThumbnail(pdfDoc, pageIndex) {
+  // Generate thumbnail for a page using PDF.js
+  async function generateThumbnail(pdfJsDoc, pageIndex) {
     try {
-      // Create a new document with just this page
-      const newDoc = await PDFLib.PDFDocument.create();
-      const [copiedPage] = await newDoc.copyPages(pdfDoc, [pageIndex]);
-      newDoc.addPage(copiedPage);
+      const page = await pdfJsDoc.getPage(pageIndex + 1); // PDF.js uses 1-based indexing
       
-      // Render to canvas (simplified - pdf-lib doesn't have built-in rendering)
-      // For a real implementation, you'd use pdf.js for rendering
-      // Here we'll create a placeholder
+      // Calculate scale to fit thumbnail (140px width)
+      const viewport = page.getViewport({ scale: 1 });
+      const scale = 140 / viewport.width;
+      const scaledViewport = page.getViewport({ scale: scale });
+      
+      // Create canvas
       const canvas = document.createElement('canvas');
-      canvas.width = 140;
-      canvas.height = 160;
+      canvas.width = Math.floor(scaledViewport.width);
+      canvas.height = Math.floor(scaledViewport.height);
       const ctx = canvas.getContext('2d');
       
-      // Draw placeholder
-      ctx.fillStyle = '#1e293b';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#6366f1';
-      ctx.font = 'bold 14px Inter, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('PDF', canvas.width / 2, canvas.height / 2 - 10);
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '12px Inter, sans-serif';
-      ctx.fillText(`Page ${pageIndex + 1}`, canvas.width / 2, canvas.height / 2 + 15);
+      // Render page to canvas
+      await page.render({
+        canvasContext: ctx,
+        viewport: scaledViewport
+      }).promise;
       
-      return canvas.toDataURL();
+      return canvas.toDataURL('image/jpeg', 0.8);
     } catch (error) {
       console.error('Error generating thumbnail:', error);
       return null;
@@ -310,13 +313,13 @@
     const page = fileData.pages[pageIndex];
     page.rotation = (page.rotation + 90) % 360;
 
-    // Rotate in pdfDoc
+    // Rotate in pdfDoc (pdf-lib)
     const pdfPage = fileData.pdfDoc.getPages()[pageIndex];
     const currentRotation = pdfPage.getRotation().angle;
     pdfPage.setRotation(PDFLib.degrees(currentRotation + 90));
 
-    // Regenerate thumbnail
-    page.thumbnail = await generateThumbnail(fileData.pdfDoc, pageIndex);
+    // Regenerate thumbnail using PDF.js
+    page.thumbnail = await generateThumbnail(fileData.pdfJsDoc, pageIndex);
     renderThumbnails();
   };
 
