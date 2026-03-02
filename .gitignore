@@ -32,3 +32,9 @@ build/
 
 # API keys and secrets (local config files)
 tools/googlefont2svg/config.js
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
