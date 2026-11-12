@@ -54,17 +54,4 @@ See [`api/`](api/) for server implementation details.
 ## 🌐 Website
 
 - **Main Site:** https://riplay.cz
-- **English Version:** https://riplay.cz/en.html
-- **German Version:** https://riplay.cz/de.html
-- **GitHub:** https://github.com/Aeell/riplay
 
-## 📧 Contact
-
-- **Email:** stanwesly@protonmail.com
-- **Phone:** +420 776 479 855
-- **Location:** Liberec, Czech Republic
-- **GitHub:** [@Aeell](https://github.com/Aeell)
-
-## 📄 License
-
-© 2026 RIPlay. All rights reserved.
